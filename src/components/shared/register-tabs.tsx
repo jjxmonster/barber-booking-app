@@ -4,8 +4,10 @@ import * as React from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "components/ui/tabs";
 
+import RegisterClientForm from "./register-client-form";
+
 const styles = {
-  tabs_container: "w-[500px] flex items-center flex-col",
+  tabs_container: "flex items-center flex-col",
 };
 
 const RegisterTabs = () => {
@@ -16,7 +18,7 @@ const RegisterTabs = () => {
         <TabsTrigger value="business">Barber Shop</TabsTrigger>
       </TabsList>
       <TabsContent value="client">
-        <p className="text-white">CLIENT</p>
+        <RegisterClientForm />
       </TabsContent>
       <TabsContent value="business">Change your password here.</TabsContent>
     </Tabs>

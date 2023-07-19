@@ -5,7 +5,7 @@ const Logi = () => {
     <svg
       version="1.0"
       xmlns="http://www.w3.org/2000/svg"
-      className="w-[100px]"
+      className="w-[75px]"
       viewBox="0 0 1280.000000 640.000000"
       preserveAspectRatio="xMidYMid meet"
     >
