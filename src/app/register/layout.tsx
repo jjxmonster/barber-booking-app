@@ -3,10 +3,10 @@ import "app/globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Login | Barber Booking App",
+  title: "Register | Barber Booking App",
 };
 
-export default function LoginLayout({
+export default function RegisterLayout({
   children,
 }: {
   children: React.ReactNode;

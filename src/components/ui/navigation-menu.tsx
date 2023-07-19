@@ -2,6 +2,7 @@ import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu";
 import * as React from "react";
 
 import { ChevronDown } from "lucide-react";
+import Link from "next/link";
 import { cn } from "lib/utils";
 import { cva } from "class-variance-authority";
 
@@ -38,7 +39,24 @@ const NavigationMenuList = React.forwardRef<
 ));
 NavigationMenuList.displayName = NavigationMenuPrimitive.List.displayName;
 
-const NavigationMenuItem = NavigationMenuPrimitive.Item;
+interface NavigationMenuItemProps {
+  href: string;
+  text: string;
+}
+
+const NavigationMenuItem: React.FunctionComponent<NavigationMenuItemProps> = ({
+  href,
+  text,
+}) => {
+  return (
+    <Link
+      className="text-white px-3 relative after:absolute after:inset-0 after:m-auto after:w-0 after:h-full after:transition-all after:border-t-2 after:border-primary hover:after:w-1/5"
+      href={href}
+    >
+      {text}
+    </Link>
+  );
+};
 
 const navigationMenuTriggerStyle = cva(
   "group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-accent/50 data-[state=open]:bg-accent/50"
