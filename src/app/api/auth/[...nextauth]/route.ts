@@ -1,5 +1,7 @@
-import NextAuth, { type NextAuthOptions } from "next-auth";
+import NextAuth, { type NextAuthOptions, Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
+import authorizeUser from "services/user/authorize";
 
 export const authOptions: NextAuthOptions = {
   session: {
@@ -17,12 +19,31 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        const user = { id: "1", name: "John", email: "john@example.com" };
+        if (!credentials?.email || !credentials?.password) {
+          return null;
+        }
 
-        return user;
+        return authorizeUser(credentials);
       },
     }),
   ],
+  callbacks: {
+    async session({ session, token }: { session: Session; token: JWT }) {
+      session.user.role = token.role;
+      session.user.id = token.id;
+
+      return session;
+    },
+    async jwt({ token, user }) {
+      if (user) {
+        token.name = user?.name;
+        token.role = user?.role;
+        token.id = user?.id;
+      }
+
+      return token;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);

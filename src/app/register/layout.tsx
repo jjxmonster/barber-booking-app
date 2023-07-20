@@ -11,5 +11,5 @@ export default function RegisterLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return <section className="mt-32">{children}</section>;
 }

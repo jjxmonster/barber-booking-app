@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+const { PrismaClient, Role } = require("@prisma/client");
 const { hash } = require("bcrypt");
 
 const prisma = new PrismaClient();
@@ -12,6 +12,7 @@ const main = async () => {
       email: "test@test.com",
       name: "Test User",
       password,
+      role: Role.CLIENT,
     },
   });
 

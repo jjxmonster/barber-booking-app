@@ -1,5 +1,5 @@
 export const clientRegistrationFormItems: {
-  key: "email" | "username";
+  key: "email" | "username" | "password";
   label: string;
   placeholder: string;
 }[] = [
@@ -12,5 +12,10 @@ export const clientRegistrationFormItems: {
     key: "email",
     label: "Email",
     placeholder: "johndoe@example.com",
+  },
+  {
+    key: "password",
+    label: "Password",
+    placeholder: "**********",
   },
 ];
