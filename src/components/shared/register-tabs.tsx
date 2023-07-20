@@ -15,7 +15,7 @@ const RegisterTabs = () => {
     <Tabs defaultValue="client" className={styles.tabs_container}>
       <TabsList>
         <TabsTrigger value="client">Client</TabsTrigger>
-        <TabsTrigger value="business">Barber Shop</TabsTrigger>
+        <TabsTrigger value="business">Business</TabsTrigger>
       </TabsList>
       <TabsContent value="client">
         <RegisterClientForm />

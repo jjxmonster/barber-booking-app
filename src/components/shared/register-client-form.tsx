@@ -5,7 +5,6 @@ import * as z from "zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -40,7 +39,9 @@ const RegisterClientForm = () => {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof formSchema>) => {};
+  const onSubmit = (values: z.infer<typeof formSchema>) => {
+    console.log(values);
+  };
 
   const renderItems = clientRegistrationFormItems.map(
     ({ key, label, placeholder }) => (
