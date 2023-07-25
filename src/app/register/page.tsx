@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import RegisterTabs from "components/shared/register-tabs";
+import RegisterTabs from "app/register/components/register-tabs";
 
 const styles = {
   wrapper: "flex justify-center",

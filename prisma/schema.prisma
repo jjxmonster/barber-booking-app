@@ -6,17 +6,27 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-  
+
 model User {
-  id            Int      @id @default(autoincrement())
-  name          String?
-  email         String   @unique
-  password      String
-  role          Role
-  createdAt     DateTime  @default(now())
+  id         Int         @id @default(autoincrement())
+  name       String?
+  email      String      @unique
+  password   String
+  role       Role
+  createdAt  DateTime    @default(now())
+  barberShop BarberShop?
+}
+
+model BarberShop {
+  id        Int      @id @default(autoincrement())
+  name      String
+  address   String
+  user      User     @relation(fields: [userEmail], references: [email])
+  userEmail String   @unique
+  createdAt DateTime @default(now())
 }
 
 enum Role {
   CLIENT
-  MAINTAINER
+  SALON_OWNER
 }

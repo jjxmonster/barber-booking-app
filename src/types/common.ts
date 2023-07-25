@@ -10,4 +10,11 @@ export type UserPayload = {
   name: string;
   password: string;
   role: Role;
+  business_name?: string;
+  address?: string;
+};
+
+export type BusinessPayload = {
+  business_name: string;
+  address: string;
 };
