@@ -6,20 +6,6 @@ import { hash } from "bcrypt";
 
 const prisma = new PrismaClient();
 
-const client_schema = Joi.object({
-  email: Joi.string().email().required(),
-  name: Joi.string().required(),
-  password: Joi.string().required(),
-  role: Joi.string().valid(Role.CLIENT, Role.SALON_OWNER).required(),
-});
-const business_schema = Joi.object({
-  business_name: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().required(),
-  role: Joi.string().valid(Role.CLIENT, Role.SALON_OWNER).required(),
-  address: Joi.string().required(),
-});
-
 const getSchema = (role: Role) => {
   const business_fields = {
     role: Joi.string().valid(Role.CLIENT, Role.SALON_OWNER).required(),

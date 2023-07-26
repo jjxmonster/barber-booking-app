@@ -7,7 +7,7 @@ export type AuthorizeUserPayload = Pick<User, "email" | "role" | "name"> & {
 
 export type UserPayload = {
   email: string;
-  name: string;
+  name?: string;
   password: string;
   role: Role;
   business_name?: string;

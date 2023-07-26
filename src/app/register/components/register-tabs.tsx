@@ -3,9 +3,15 @@
 import * as React from "react";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "components/ui/tabs";
+import {
+  businessFormSchema,
+  businessRegistrationFormItems,
+  clientFormSchema,
+  clientRegistrationFormItems,
+} from "lib/constants";
 
-import RegisterBusinessForm from "./register-business-form";
-import RegisterClientForm from "./register-client-form";
+import RegisterForm from "./register-form";
+import { Role } from "@prisma/client";
 
 const styles = {
   tabs_container: "flex items-center flex-col",
@@ -19,10 +25,18 @@ const RegisterTabs = () => {
         <TabsTrigger value="business">Business</TabsTrigger>
       </TabsList>
       <TabsContent value="client">
-        <RegisterClientForm />
+        <RegisterForm
+          role={Role.CLIENT}
+          formItems={clientRegistrationFormItems}
+          formSchema={clientFormSchema}
+        />
       </TabsContent>
       <TabsContent value="business">
-        <RegisterBusinessForm />
+        <RegisterForm
+          role={Role.SALON_OWNER}
+          formItems={businessRegistrationFormItems}
+          formSchema={businessFormSchema}
+        />
       </TabsContent>
     </Tabs>
   );
