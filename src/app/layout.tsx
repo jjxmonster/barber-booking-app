@@ -1,7 +1,6 @@
 import "app/globals.css";
 
 import type { Metadata } from "next";
-import NavBar from "components/shared/nav-bar";
 import { Providers } from "./providers";
 
 export const metadata: Metadata = {
@@ -19,7 +18,6 @@ export default function RootLayout({
         <Providers>
           <div className="w-screen relative flex flex-col items-center min-h-screen">
             <div className="max-w-screen-xl w-full flex-1 relative">
-              <NavBar />
               {children}
             </div>
           </div>

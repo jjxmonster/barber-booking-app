@@ -13,13 +13,9 @@ import {
 import RegisterForm from "./register-form";
 import { Role } from "@prisma/client";
 
-const styles = {
-  tabs_container: "flex items-center flex-col",
-};
-
 const RegisterTabs = () => {
   return (
-    <Tabs defaultValue="client" className={styles.tabs_container}>
+    <Tabs defaultValue="client" className="mt-5">
       <TabsList>
         <TabsTrigger value="client">Client</TabsTrigger>
         <TabsTrigger value="business">Business</TabsTrigger>

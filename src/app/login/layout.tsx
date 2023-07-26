@@ -1,5 +1,6 @@
 import "app/globals.css";
 
+import AuthPageLayout from "components/shared/auth-page-layout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,5 +12,9 @@ export default function LoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <section>{children}</section>;
+  return (
+    <section>
+      <AuthPageLayout>{children}</AuthPageLayout>
+    </section>
+  );
 }

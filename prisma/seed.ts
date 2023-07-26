@@ -15,8 +15,6 @@ const main = async () => {
       role: Role.CLIENT,
     },
   });
-
-  console.log(user);
 };
 
 main()

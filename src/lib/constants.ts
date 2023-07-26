@@ -21,6 +21,22 @@ export const clientRegistrationFormItems: {
     placeholder: "**********",
   },
 ];
+export const loginFormItems: {
+  key: "email" | "password";
+  label: string;
+  placeholder: string;
+}[] = [
+  {
+    key: "email",
+    label: "Email",
+    placeholder: "johndoe@example.com",
+  },
+  {
+    key: "password",
+    label: "Password",
+    placeholder: "**********",
+  },
+];
 
 export const businessRegistrationFormItems: {
   key: "business_name" | "email" | "address" | "password";

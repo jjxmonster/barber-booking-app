@@ -14,7 +14,9 @@ const NavBar: FunctionComponent = () => {
     <nav className={styles.navbar}>
       <Logo />
       <div className={styles.buttons_wrapper}>
-        <Button>Login</Button>
+        <Button asChild>
+          <Link href="/login">Login</Link>
+        </Button>
         <Button asChild variant="secondary">
           <Link href="/register">Register</Link>
         </Button>

@@ -1,7 +1,6 @@
 import { UserPayload } from "types/common";
 
 const registerUser = async (body: UserPayload) => {
-  console.log(body);
   const response = await fetch("/api/users", {
     method: "POST",
     body: JSON.stringify(body),

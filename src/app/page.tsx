@@ -1,7 +1,9 @@
+import NavBar from "components/shared/nav-bar";
+
 export default async function Home() {
   return (
     <>
-      <div className="text-green"></div>
+      <NavBar />
     </>
   );
 }
