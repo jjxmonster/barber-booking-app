@@ -10,6 +10,7 @@ const getSchema = (role: Role) => {
   const business_fields = {
     role: Joi.string().valid(Role.CLIENT, Role.SALON_OWNER).required(),
     address: Joi.string().required(),
+    city: Joi.string().required(),
     business_name: Joi.string().required(),
   };
   const client_field = { name: Joi.string().required() };
@@ -43,7 +44,8 @@ const checkEmail = async (email: string) => {
 };
 
 const create = async (payload: UserPayload) => {
-  const { email, name, password, role, business_name, address } =
+  console.log(payload);
+  const { email, name, password, role, business_name, address, city } =
     await getSchema(payload.role).validateAsync({
       ...payload,
       role: Role[payload.role],
@@ -63,7 +65,7 @@ const create = async (payload: UserPayload) => {
 
   if (role === Role.SALON_OWNER) {
     try {
-      await createBarberShop({ business_name, address }, user);
+      await createBarberShop({ business_name, address, city }, user);
     } catch (error) {
       throw new Error("Something went wrong when creating the barber shop");
     }
@@ -73,7 +75,7 @@ const create = async (payload: UserPayload) => {
 };
 
 const createBarberShop = async (payload: BusinessPayload, user: User) => {
-  const { business_name, address } = payload;
+  const { business_name, address, city } = payload;
 
   const barber_shop = prisma.barberShop.create({
     data: {
@@ -84,6 +86,7 @@ const createBarberShop = async (payload: BusinessPayload, user: User) => {
       },
       name: business_name,
       address,
+      city,
     },
   });
 

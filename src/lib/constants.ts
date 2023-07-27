@@ -39,7 +39,7 @@ export const loginFormItems: {
 ];
 
 export const businessRegistrationFormItems: {
-  key: "business_name" | "email" | "address" | "password";
+  key: "business_name" | "email" | "address" | "password" | "city";
   label: string;
   placeholder: string;
 }[] = [
@@ -51,9 +51,13 @@ export const businessRegistrationFormItems: {
   {
     key: "address",
     label: "Address",
-    placeholder: "Sun St. 24, New York",
+    placeholder: "Sunny St. 24",
   },
-
+  {
+    key: "city",
+    label: "City",
+    placeholder: "New York",
+  },
   {
     key: "email",
     label: "Email",
@@ -89,6 +93,9 @@ export const businessFormSchema = z.object({
     .email("This is not a valid email."),
   address: z.string().min(5, {
     message: "Address must be at least 5 characters.",
+  }),
+  city: z.string().min(5, {
+    message: "City must be at least 3 characters.",
   }),
   password: z.string().min(8, {
     message: "Password must be at least 8 characters.",

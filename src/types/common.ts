@@ -12,9 +12,11 @@ export type UserPayload = {
   role: Role;
   business_name?: string;
   address?: string;
+  city?: string;
 };
 
 export type BusinessPayload = {
   business_name: string;
   address: string;
+  city: string;
 };

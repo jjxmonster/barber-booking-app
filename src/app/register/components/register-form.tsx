@@ -57,9 +57,9 @@ const RegisterForm = ({ formItems, formSchema, role }: RegisterFormProps) => {
 
       payload = { ...payload, name, email, password };
     } else {
-      const { business_name, address, email, password } = values;
+      const { business_name, address, email, password, city } = values;
 
-      payload = { ...payload, business_name, address, email, password };
+      payload = { ...payload, business_name, address, email, password, city };
     }
 
     const response = await registerUser(payload);
@@ -73,6 +73,7 @@ const RegisterForm = ({ formItems, formSchema, role }: RegisterFormProps) => {
       if (data.error === "email_taken") {
         setErrorMessage("Email already taken, please try another one");
       } else {
+        console.log(data);
         setErrorMessage("Something went wrong, please try again");
       }
     }
