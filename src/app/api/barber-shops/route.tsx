@@ -1,6 +1,6 @@
 import { NextApiRequest } from "next";
 import { NextResponse } from "next/server";
-import getBarberShopsByCity from "helpers/getBarberShopsByCity";
+import getBarberShopsByCity from "services/barber/get";
 
 export async function GET(req: NextApiRequest, _res: Response) {
   try {

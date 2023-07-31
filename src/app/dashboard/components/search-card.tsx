@@ -1,16 +1,23 @@
-import React, { FunctionComponent, Suspense, useState } from "react";
+import React, { FunctionComponent, Suspense, useEffect, useState } from "react";
 
 import BarberShopsList from "./barber-shops-list";
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { Label } from "components/ui/label";
-import { Skeleton } from "components/ui/skeleton";
+import LoadingIndicator from "../../../components/shared/loading-indicator";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface SearchCardProps {}
 
 const SearchCard: FunctionComponent<SearchCardProps> = () => {
   const [city, setCity] = useState<string | null>(null);
   const [showResults, setShowResults] = useState<boolean>(false);
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setShowResults(false);
+  }, [city]);
+
   return (
     <div className="h-auto">
       <Label className="text-gray-400" htmlFor="city">
@@ -24,13 +31,19 @@ const SearchCard: FunctionComponent<SearchCardProps> = () => {
           type="text"
           placeholder="New York"
         />
-        <Button onClick={() => setShowResults(true)} type="submit">
+        <Button
+          onClick={() => {
+            queryClient.invalidateQueries(["barber_shops"]);
+            setShowResults(true);
+          }}
+          type="submit"
+        >
           Search
         </Button>
       </div>
 
       {showResults && city && (
-        <Suspense fallback={<div className="text-white">LOADING</div>}>
+        <Suspense fallback={<LoadingIndicator />}>
           <BarberShopsList city={city} />
         </Suspense>
       )}

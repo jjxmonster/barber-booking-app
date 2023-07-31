@@ -7,11 +7,13 @@ import Image from "next/image";
 interface BarberShopCardProps {
   name: string;
   address: string;
+  image: string;
 }
 
 const BarberShopCard: FunctionComponent<BarberShopCardProps> = ({
   name,
   address,
+  image,
 }) => {
   return (
     <Card className="rounded-md shadow-lg overflow-hidden">
@@ -20,7 +22,7 @@ const BarberShopCard: FunctionComponent<BarberShopCardProps> = ({
           layout="fill"
           objectFit="cover"
           className="w-full"
-          src="https://images.unsplash.com/photo-1590509294910-32752e061399?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8YmFyYmVyfHx8fHx8MTY5MDgzNjAzMw&ixlib=rb-4.0.3&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080"
+          src={image}
           alt="Sunset in the mountains"
         />
       </CardHeader>

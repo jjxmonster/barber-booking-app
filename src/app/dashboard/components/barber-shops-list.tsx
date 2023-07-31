@@ -9,16 +9,17 @@ interface BarberShopsListProps {
 }
 
 const BarberShopsList: FunctionComponent<BarberShopsListProps> = ({ city }) => {
-  const { data } = useQuery(["barber_shops"], () =>
+  const { data } = useQuery(["barber_shops", city], () =>
     fetch(`/api/barber-shops?city=${city}`).then(res => res.json())
   );
 
-  const { barber_shops } = data;
+  const { barber_shops } = data || { barber_shops: [] };
 
   const renderBarberShops = barber_shops.map(
-    ({ id, name, address, city }: BarberShop) => {
+    ({ id, name, address, city, imageUrl }: BarberShop) => {
       return (
         <BarberShopCard
+          image={imageUrl}
           key={id}
           name={name as string}
           address={`${address}, ${city}`}
