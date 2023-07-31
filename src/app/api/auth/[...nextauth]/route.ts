@@ -34,6 +34,9 @@ export const authOptions: NextAuthOptions = {
 
       return session;
     },
+    async redirect({ baseUrl }) {
+      return `${baseUrl}/dashboard`;
+    },
     async jwt({ token, user }) {
       if (user) {
         token.name = user?.name;

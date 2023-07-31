@@ -44,7 +44,6 @@ const checkEmail = async (email: string) => {
 };
 
 const create = async (payload: UserPayload) => {
-  console.log(payload);
   const { email, name, password, role, business_name, address, city } =
     await getSchema(payload.role).validateAsync({
       ...payload,
@@ -76,6 +75,9 @@ const create = async (payload: UserPayload) => {
 
 const createBarberShop = async (payload: BusinessPayload, user: User) => {
   const { business_name, address, city } = payload;
+  const { url } = await fetch(
+    "https://source.unsplash.com/random/900%C3%97700/?barber"
+  );
 
   const barber_shop = prisma.barberShop.create({
     data: {
@@ -84,6 +86,7 @@ const createBarberShop = async (payload: BusinessPayload, user: User) => {
           id: user.id,
         },
       },
+      imageUrl: url,
       name: business_name,
       address,
       city,

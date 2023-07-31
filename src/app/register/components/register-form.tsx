@@ -73,7 +73,6 @@ const RegisterForm = ({ formItems, formSchema, role }: RegisterFormProps) => {
       if (data.error === "email_taken") {
         setErrorMessage("Email already taken, please try another one");
       } else {
-        console.log(data);
         setErrorMessage("Something went wrong, please try again");
       }
     }

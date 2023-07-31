@@ -24,6 +24,7 @@ model BarberShop {
   city      String
   user      User     @relation(fields: [userEmail], references: [email])
   userEmail String   @unique
+  imageUrl  String
   createdAt DateTime @default(now())
 }
 

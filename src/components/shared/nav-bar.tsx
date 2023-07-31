@@ -15,8 +15,6 @@ const styles = {
 const NavBar: FunctionComponent = () => {
   const { data } = useSession();
 
-  console.log(data);
-
   return (
     <nav className={styles.navbar}>
       <Logo />
