@@ -12,6 +12,7 @@ import AppointmentCard from "./components/appointment-card";
 import { Badge } from "components/ui/badge";
 import { Clock } from "lucide-react";
 import React from "react";
+import Recommended from "./components/recommended-barber-shops";
 import SearchCard from "./components/search-card";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
@@ -37,6 +38,16 @@ const Dashboard = () => {
           </CardHeader>
           <CardContent>
             <AppointmentCard />
+          </CardContent>
+        </Card>
+      </div>
+      <div className="mt-10">
+        <Card>
+          <CardHeader>
+            <CardTitle>Recommended for you</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Recommended />
           </CardContent>
         </Card>
       </div>

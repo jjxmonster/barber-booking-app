@@ -15,6 +15,14 @@ const BarberShopsList: FunctionComponent<BarberShopsListProps> = ({ city }) => {
 
   const { barber_shops } = data || { barber_shops: [] };
 
+  if (!barber_shops.length) {
+    return (
+      <div className="w-full h-20 text-gray-400 flex items-center justify-center">
+        <span>No barber shops found in {city}</span>
+      </div>
+    );
+  }
+
   const renderBarberShops = barber_shops.map(
     ({ id, name, address, city, imageUrl }: BarberShop) => {
       return (

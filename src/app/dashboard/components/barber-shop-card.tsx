@@ -1,4 +1,4 @@
-import { Card, CardContent, CardFooter, CardHeader } from "components/ui/card";
+import { Card, CardHeader } from "components/ui/card";
 import React, { FunctionComponent } from "react";
 
 import { Button } from "components/ui/button";
@@ -23,7 +23,7 @@ const BarberShopCard: FunctionComponent<BarberShopCardProps> = ({
           objectFit="cover"
           className="w-full"
           src={image}
-          alt="Sunset in the mountains"
+          alt={`${name} - Image`}
         />
       </CardHeader>
       <div className="max-w-sm rounded overflow-hidden relative">

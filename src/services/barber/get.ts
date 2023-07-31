@@ -2,7 +2,7 @@ import { BarberShop, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const getBarberShopsByCity = async (
+export const getBarberShopsByCity = async (
   city: string
 ): Promise<Array<BarberShop>> => {
   const result = await prisma.barberShop.findMany({
@@ -13,4 +13,7 @@ const getBarberShopsByCity = async (
   return result;
 };
 
-export default getBarberShopsByCity;
+export const getBarberShops = async (): Promise<Array<BarberShop>> => {
+  const result = await prisma.barberShop.findMany();
+  return result;
+};
