@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 
 import { BarberShop } from "@prisma/client";
-import BarberShopCard from "./barber-shop-card";
+import BarberShopCard from "../barber-shop-card";
 import { useQuery } from "@tanstack/react-query";
 
 interface BarberShopsListProps {

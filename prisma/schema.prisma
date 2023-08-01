@@ -8,24 +8,44 @@ datasource db {
 }
 
 model User {
-  id         Int         @id @default(autoincrement())
-  name       String?
-  email      String      @unique
-  password   String
-  role       Role
-  createdAt  DateTime    @default(now())
-  barberShop BarberShop?
+  id          Int          @id @default(autoincrement())
+  name        String?
+  email       String       @unique
+  password    String
+  role        Role
+  createdAt   DateTime     @default(now())
+  barberShop  BarberShop?
+  Appointment Appointment[]
 }
 
 model BarberShop {
-  id        Int      @id @default(autoincrement())
-  name      String
-  address   String
-  city      String
-  user      User     @relation(fields: [userEmail], references: [email])
-  userEmail String   @unique
-  imageUrl  String
-  createdAt DateTime @default(now())
+  id          Int           @id @default(autoincrement())
+  name        String
+  address     String
+  city        String
+  user        User          @relation(fields: [userEmail], references: [email])
+  userEmail   String        @unique
+  imageUrl    String
+  createdAt   DateTime      @default(now())
+  Appointment Appointment[]
+}
+
+model Employee{
+  id Int @id @default(autoincrement())
+  name String
+  Appointment Appointment[]
+}
+
+model Appointment {
+  id           Int        @id @default(autoincrement())
+  client       User       @relation(fields: [clientEmail], references: [email])
+  clientEmail  String     @unique
+  employee  Employee @relation(fields:[employeeId], references: [id])
+  employeeId Int
+  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
+  barberShopId Int
+  date         DateTime   @default(now())
+  createdAt    DateTime   @default(now())
 }
 
 enum Role {

@@ -1,6 +1,8 @@
+import { Role } from "@prisma/client";
 import NextAuth, { type NextAuthOptions, Session } from "next-auth";
 import { JWT } from "next-auth/jwt";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { getBarberShopName } from "services/barber/get";
 import authorizeUser from "services/user/authorize";
 
 export const authOptions: NextAuthOptions = {
@@ -32,6 +34,12 @@ export const authOptions: NextAuthOptions = {
       session.user.role = token.role;
       session.user.id = token.id;
 
+      if (token.role === Role.SALON_OWNER) {
+        const barber_shop_name = await getBarberShopName(token.email as string);
+
+        session.user.name = barber_shop_name as string;
+      }
+
       return session;
     },
     async redirect({ baseUrl }) {
@@ -42,6 +50,7 @@ export const authOptions: NextAuthOptions = {
         token.name = user?.name;
         token.role = user?.role;
         token.id = user?.id;
+        token.email = user?.email;
       }
 
       return token;

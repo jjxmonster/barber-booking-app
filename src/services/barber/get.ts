@@ -17,3 +17,13 @@ export const getBarberShops = async (): Promise<Array<BarberShop>> => {
   const result = await prisma.barberShop.findMany();
   return result;
 };
+
+export const getBarberShopName = async (userEmail: string): Promise<string> => {
+  const result = await prisma.barberShop.findFirst({
+    where: {
+      userEmail,
+    },
+  });
+
+  return result?.name ?? "not_found";
+};
