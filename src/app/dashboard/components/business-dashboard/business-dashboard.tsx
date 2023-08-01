@@ -1,17 +1,30 @@
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
+import React, { Suspense } from "react";
 
-import AppointmentCard from "../client-dashboard/appointment-card";
-import React from "react";
-import Recommended from "../client-dashboard/recommended-barber-shops";
-import SearchCard from "../client-dashboard/search-card";
+import Employees from "./employees";
+import LoadingIndicator from "components/shared/loading-indicator";
+import { useSession } from "next-auth/react";
 
 const BusinessDashboard = () => {
+  const { data } = useSession();
   return (
     <>
-      <div className="flex gap-10 w-full">
+      <div className="gap-10 w-full">
         <Card>
           <CardHeader>
-            <CardTitle>Your employees</CardTitle>
+            <CardTitle>Employees</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Suspense fallback={<LoadingIndicator />}>
+              <Employees barberShopId={Number(data?.user?.id)} />
+            </Suspense>
+          </CardContent>
+        </Card>
+      </div>
+      <div className="mt-10">
+        <Card>
+          <CardHeader>
+            <CardTitle>Appointments</CardTitle>
           </CardHeader>
           <CardContent></CardContent>
         </Card>

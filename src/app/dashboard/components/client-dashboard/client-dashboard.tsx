@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 
-import AppointmentCard from "./appointment-card";
+import AppointmentCard from "../appointment-card";
 import React from "react";
 import Recommended from "./recommended-barber-shops";
 import SearchCard from "./search-card";
@@ -8,7 +8,7 @@ import SearchCard from "./search-card";
 const ClientDashboard = () => {
   return (
     <>
-      <div className="flex gap-10 w-full">
+      <div className="gap-10 w-full">
         <Card>
           <CardHeader>
             <CardTitle>Your appointments</CardTitle>
