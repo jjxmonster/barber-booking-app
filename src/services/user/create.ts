@@ -43,7 +43,7 @@ const checkEmail = async (email: string) => {
   }
 };
 
-const create = async (payload: UserPayload) => {
+const createUser = async (payload: UserPayload) => {
   const { email, name, password, role, business_name, address, city } =
     await getSchema(payload.role).validateAsync({
       ...payload,
@@ -96,4 +96,4 @@ const createBarberShop = async (payload: BusinessPayload, user: User) => {
   return barber_shop;
 };
 
-export default create;
+export default createUser;

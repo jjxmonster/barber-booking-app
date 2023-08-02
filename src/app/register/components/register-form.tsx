@@ -15,7 +15,7 @@ import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { Role } from "@prisma/client";
 import { UserPayload } from "types/common";
-import registerUser from "helpers/registerUser";
+import registerUser from "services/user/register";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

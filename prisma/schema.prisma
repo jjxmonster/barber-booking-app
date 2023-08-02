@@ -34,8 +34,9 @@ model BarberShop {
 model Employee{
   id Int @id @default(autoincrement())
   name String
+  avatarUrl String
   Appointment Appointment[]
-   barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
+  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
   barberShopId Int
 }
 

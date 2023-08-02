@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 import React, { Suspense } from "react";
 
+import AddEmployeeDialog from "./add-employee-dialog";
 import Employees from "./employees";
 import LoadingIndicator from "components/shared/loading-indicator";
 import { useSession } from "next-auth/react";
@@ -18,6 +19,7 @@ const BusinessDashboard = () => {
             <Suspense fallback={<LoadingIndicator />}>
               <Employees barberShopId={Number(data?.user?.id)} />
             </Suspense>
+            <AddEmployeeDialog barberShopId={Number(data?.user?.id)} />
           </CardContent>
         </Card>
       </div>
