@@ -8,12 +8,12 @@ datasource db {
 }
 
 model User {
-  id          Int          @id @default(autoincrement())
+  id          Int           @id @default(autoincrement())
   name        String?
-  email       String       @unique
+  email       String        @unique
   password    String
   role        Role
-  createdAt   DateTime     @default(now())
+  createdAt   DateTime      @default(now())
   barberShop  BarberShop?
   Appointment Appointment[]
 }
@@ -28,15 +28,15 @@ model BarberShop {
   imageUrl    String
   createdAt   DateTime      @default(now())
   Appointment Appointment[]
-  Employee Employee[]
+  Employee    Employee[]
 }
 
-model Employee{
-  id Int @id @default(autoincrement())
-  name String
-  avatarUrl String
-  Appointment Appointment[]
-  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
+model Employee {
+  id           Int           @id @default(autoincrement())
+  name         String
+  avatarUrl    String
+  Appointment  Appointment[]
+  barberShop   BarberShop    @relation(fields: [barberShopId], references: [id])
   barberShopId Int
 }
 
@@ -44,8 +44,8 @@ model Appointment {
   id           Int        @id @default(autoincrement())
   client       User       @relation(fields: [clientEmail], references: [email])
   clientEmail  String     @unique
-  employee  Employee @relation(fields:[employeeId], references: [id])
-  employeeId Int
+  employee     Employee   @relation(fields: [employeeId], references: [id])
+  employeeId   Int
   barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
   barberShopId Int
   date         DateTime   @default(now())

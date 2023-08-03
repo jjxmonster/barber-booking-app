@@ -7,12 +7,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "components/ui/dialog";
+import { Loader2, UserPlus } from "lucide-react";
 import React, { FunctionComponent, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
-import { UserPlus } from "lucide-react";
-import { useMutation } from "@tanstack/react-query";
+import { useToast } from "components/ui/use-toast";
 
 interface AddEmployeeDialogProps {
   barberShopId: number;
@@ -22,6 +23,9 @@ const AddEmployeeDialog: FunctionComponent<AddEmployeeDialogProps> = ({
   barberShopId,
 }) => {
   const [name, setName] = useState("");
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
   const { mutate, isLoading, error } = useMutation(
     () =>
       fetch(`/api/employees`, {
@@ -32,7 +36,14 @@ const AddEmployeeDialog: FunctionComponent<AddEmployeeDialogProps> = ({
         },
       }),
     {
-      onSuccess: () => {},
+      onSuccess: () => {
+        toast({
+          title: "Done!",
+          description: `Employee ${name} has been successfully added`,
+        });
+        setName("");
+        queryClient.invalidateQueries(["employees"]);
+      },
       onError: err => {
         console.log(err, "ERRRRR");
       },
@@ -60,6 +71,7 @@ const AddEmployeeDialog: FunctionComponent<AddEmployeeDialogProps> = ({
           </DialogHeader>
           <DialogFooter>
             <Button variant="secondary" onClick={() => mutate()}>
+              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Add
             </Button>
           </DialogFooter>

@@ -4,7 +4,11 @@ const nextConfig = {
     serverComponentsExternalPackages: ["@prisma/client", "bcrypt"],
   },
   images: {
-    domains: ["images.unsplash.com", "xsgames.co"],
+    domains: ["images.unsplash.com"],
+  },
+  webpack(config) {
+    config.infrastructureLogging = { debug: /PackFileCache/ };
+    return config;
   },
 };
 

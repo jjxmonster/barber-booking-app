@@ -4,6 +4,7 @@ import BusinessDashboard from "./components/business-dashboard/business-dashboar
 import ClientDashboard from "./components/client-dashboard/client-dashboard";
 import React from "react";
 import { Role } from "@prisma/client";
+import { Toaster } from "components/ui/toaster";
 import { redirect } from "next/navigation";
 import { useSession } from "next-auth/react";
 
@@ -31,7 +32,12 @@ const Dashboard = () => {
     }
   };
 
-  return <div className="mt-20 w-full">{renderDashboard()}</div>;
+  return (
+    <div className="mt-20 w-full">
+      <Toaster />
+      {renderDashboard()}
+    </div>
+  );
 };
 
 export default Dashboard;

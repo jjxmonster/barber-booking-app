@@ -18,12 +18,14 @@ export const getBarberShops = async (): Promise<Array<BarberShop>> => {
   return result;
 };
 
-export const getBarberShopName = async (userEmail: string): Promise<string> => {
+export const getBarberShopDataForToken = async (
+  userEmail: string
+): Promise<{ name: string; id: number }> => {
   const result = await prisma.barberShop.findFirst({
     where: {
       userEmail,
     },
   });
 
-  return result?.name ?? "not_found";
+  return { name: result?.name ?? "not_found", id: result?.id ?? 0 };
 };
