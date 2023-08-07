@@ -3,7 +3,6 @@
 import * as z from "zod";
 
 import { Alert, AlertDescription, AlertTitle } from "components/ui/alert";
-import { AlertCircle, FileWarning, Terminal } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -12,16 +11,12 @@ import {
   FormLabel,
   FormMessage,
 } from "components/ui/form";
-import {
-  businessRegistrationFormItems,
-  clientRegistrationFormItems,
-  loginFormItems,
-} from "lib/constants";
 
+import { AlertCircle } from "lucide-react";
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { Loader2 } from "lucide-react";
-import { Role } from "@prisma/client";
+import { loginFormItems } from "lib/constants";
 import { signIn } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";

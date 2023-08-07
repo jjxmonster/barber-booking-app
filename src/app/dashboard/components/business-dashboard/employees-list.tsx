@@ -26,6 +26,7 @@ const Employees: FunctionComponent<EmployeesProps> = ({ barberShopId }) => {
   const renderEmployees = employees.map(({ avatarUrl, id, name }: Employee) => (
     <EmployeeCard key={id} image={avatarUrl} name={name} />
   ));
+
   return <div className="grid gap-6 grid-cols-4">{renderEmployees}</div>;
 };
 

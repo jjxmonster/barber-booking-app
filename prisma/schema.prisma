@@ -15,7 +15,7 @@ model User {
   role        Role
   createdAt   DateTime      @default(now())
   barberShop  BarberShop?
-  Appointment Appointment[]
+  Appointments Appointment[]
 }
 
 model BarberShop {
@@ -27,16 +27,24 @@ model BarberShop {
   userEmail   String        @unique
   imageUrl    String
   createdAt   DateTime      @default(now())
-  Appointment Appointment[]
-  Employee    Employee[]
+  Appointments Appointment[]
+  Employees    Employee[]
+  Services     Service[]
 }
 
 model Employee {
   id           Int           @id @default(autoincrement())
   name         String
   avatarUrl    String
-  Appointment  Appointment[]
+  Appointments  Appointment[]
   barberShop   BarberShop    @relation(fields: [barberShopId], references: [id])
+  barberShopId Int
+}
+
+model Service {
+  id           Int        @id @default(autoincrement())
+  name         String
+  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
   barberShopId Int
 }
 
