@@ -44,6 +44,7 @@ model Employee {
 model Service {
   id           Int        @id @default(autoincrement())
   name         String
+  price Int
   barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
   barberShopId Int
 }

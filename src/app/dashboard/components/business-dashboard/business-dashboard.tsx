@@ -5,6 +5,7 @@ import AddEmployeeDialog from "./add-employee-dialog";
 import AddServiceDialog from "./add-service-dialog";
 import Employees from "./employees-list";
 import LoadingIndicator from "components/shared/loading-indicator";
+import Services from "./services-list";
 import { useSession } from "next-auth/react";
 
 const BusinessDashboard = () => {
@@ -40,6 +41,9 @@ const BusinessDashboard = () => {
             <CardTitle>SERVICES</CardTitle>
           </CardHeader>
           <CardContent>
+            <Suspense fallback={<LoadingIndicator />}>
+              <Services barberShopId={Number(data?.user?.barber_shop_id)} />
+            </Suspense>
             <AddServiceDialog
               barberShopId={Number(data?.user?.barber_shop_id)}
             />
