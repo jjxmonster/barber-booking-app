@@ -2,7 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 import { NextResponse } from "next/server";
 import createService from "services/services/create";
+import deleteService from "services/services/delete";
 import getServicesForBusiness from "services/services/get";
+import updateService from "services/services/update";
 
 export async function GET(req: NextApiRequest, _res: Response) {
   try {
@@ -13,6 +15,28 @@ export async function GET(req: NextApiRequest, _res: Response) {
     const services = await getServicesForBusiness(Number(id));
 
     return NextResponse.json({ services }, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+}
+
+export async function DELETE(req: Request, _res: NextApiResponse) {
+  try {
+    const { id } = await req.json();
+    const deleted_service = await deleteService(id);
+
+    return NextResponse.json({ deleted_service }, { status: 200 });
+  } catch (error: any) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
+  }
+}
+
+export async function PUT(req: Request, _res: NextApiResponse) {
+  try {
+    const { id, name, price } = await req.json();
+    const updated_service = await updateService(id, name, price);
+
+    return NextResponse.json({ updated_service }, { status: 200 });
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }

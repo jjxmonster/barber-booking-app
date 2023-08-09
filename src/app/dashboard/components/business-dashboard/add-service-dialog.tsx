@@ -73,7 +73,7 @@ const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
         form.setValue("service", "");
         form.setValue("price", 0);
 
-        // queryClient.invalidateQueries(["ser"]);
+        queryClient.invalidateQueries(["services"]);
       },
       onError: err => {
         console.log(err, "ERRRRR");
