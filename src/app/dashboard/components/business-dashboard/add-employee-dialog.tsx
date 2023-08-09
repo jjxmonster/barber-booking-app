@@ -16,14 +16,13 @@ import {
   FormLabel,
   FormMessage,
 } from "components/ui/form";
-import { Loader2, UserPlus } from "lucide-react";
 import React, { FunctionComponent } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
+import { Loader2 } from "lucide-react";
+import useAddEmployee from "hooks/useAddEmployee";
 import { useForm } from "react-hook-form";
-import { useToast } from "components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 interface AddEmployeeDialogProps {
@@ -37,37 +36,10 @@ const formSchema = z.object({
 const AddEmployeeDialog: FunctionComponent<AddEmployeeDialogProps> = ({
   barberShopId,
 }) => {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
-
-  const { mutate, isLoading, error } = useMutation(
-    () =>
-      fetch(`/api/employees`, {
-        method: "POST",
-        body: JSON.stringify({ name: form.getValues("name"), barberShopId }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }),
-    {
-      onSuccess: () => {
-        toast({
-          title: "Done!",
-          description: `Employee ${form.getValues(
-            "name"
-          )} has been successfully added`,
-        });
-        form.setValue("name", "");
-        queryClient.invalidateQueries(["employees"]);
-      },
-      onError: err => {
-        console.log(err, "ERRRRR");
-      },
-    }
-  );
+  const { mutate, isLoading } = useAddEmployee(barberShopId, form);
 
   const onSubmit = async () => {
     mutate();

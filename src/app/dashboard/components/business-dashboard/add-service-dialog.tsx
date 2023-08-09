@@ -17,13 +17,12 @@ import {
   FormMessage,
 } from "components/ui/form";
 import React, { FunctionComponent } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { Loader2 } from "lucide-react";
+import useAddService from "hooks/useAddService";
 import { useForm } from "react-hook-form";
-import { useToast } from "components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 interface AddServiceDialogProps {
@@ -40,8 +39,6 @@ const formSchema = z.object({
 const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
   barberShopId,
 }) => {
-  const { toast } = useToast();
-  const queryClient = useQueryClient();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,37 +46,7 @@ const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
     },
   });
 
-  const { mutate, isLoading, error } = useMutation(
-    () =>
-      fetch(`/api/services`, {
-        method: "POST",
-        body: JSON.stringify({
-          name: form.getValues("service"),
-          price: form.getValues("price"),
-          barberShopId,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }),
-    {
-      onSuccess: () => {
-        toast({
-          title: "Done!",
-          description: `New service "${form.getValues(
-            "service"
-          )}" has been successfully added`,
-        });
-        form.setValue("service", "");
-        form.setValue("price", 0);
-
-        queryClient.invalidateQueries(["services"]);
-      },
-      onError: err => {
-        console.log(err, "ERRRRR");
-      },
-    }
-  );
+  const { mutate, isLoading } = useAddService(barberShopId, form);
 
   const onSubmit = async () => {
     mutate();
