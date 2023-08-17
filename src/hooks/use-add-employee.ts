@@ -8,14 +8,21 @@ const useAddEmployee = (barberShopId: number, form: UseFormReturn<any>) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    () =>
-      fetch(`/api/employees`, {
+    async () => {
+      const res = await fetch(`/api/employees`, {
         method: "POST",
         body: JSON.stringify({ name: form.getValues("name"), barberShopId }),
         headers: {
           "Content-Type": "application/json",
         },
-      }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to add employee");
+      }
+
+      return await res.json();
+    },
     {
       onSuccess: () => {
         toast({

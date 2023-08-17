@@ -8,8 +8,8 @@ const useAddService = (barberShopId: number, form: UseFormReturn<any>) => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    () =>
-      fetch(`/api/services`, {
+    async () => {
+      const res = await fetch(`/api/services`, {
         method: "POST",
         body: JSON.stringify({
           name: form.getValues("service"),
@@ -19,7 +19,13 @@ const useAddService = (barberShopId: number, form: UseFormReturn<any>) => {
         headers: {
           "Content-Type": "application/json",
         },
-      }),
+      });
+
+      if (!res.ok) {
+        throw new Error("Failed to add service");
+      }
+      return await res.json();
+    },
     {
       onSuccess: () => {
         toast({

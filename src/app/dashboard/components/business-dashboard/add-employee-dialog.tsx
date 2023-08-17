@@ -21,7 +21,7 @@ import React, { FunctionComponent } from "react";
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { Loader2 } from "lucide-react";
-import useAddEmployee from "hooks/useAddEmployee";
+import useAddEmployee from "hooks/use-add-employee";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 

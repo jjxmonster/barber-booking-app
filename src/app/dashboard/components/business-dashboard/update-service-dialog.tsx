@@ -8,6 +8,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "components/ui/dialog";
+import { Edit, Loader2 } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -20,13 +21,14 @@ import React, { FunctionComponent } from "react";
 
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
-import { Loader2 } from "lucide-react";
-import useAddService from "hooks/use-add-service";
 import { useForm } from "react-hook-form";
+import useUpdateService from "hooks/use-update-service";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-interface AddServiceDialogProps {
-  barberShopId: number;
+interface UpdateServiceDialogProps {
+  serviceId: number;
+  name: string;
+  price: number;
 }
 
 const formSchema = z.object({
@@ -36,30 +38,35 @@ const formSchema = z.object({
   price: z.number().min(1, { message: "Price must be greater than zero." }),
 });
 
-const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
-  barberShopId,
+const UpdateServiceDialog: FunctionComponent<UpdateServiceDialogProps> = ({
+  serviceId,
+  name,
+  price,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      price: 0,
+      price,
+      service: name,
     },
   });
 
-  const { mutate, isLoading } = useAddService(barberShopId, form);
+  const { mutate, isLoading } = useUpdateService(form);
 
   const onSubmit = async () => {
-    mutate();
+    mutate(serviceId);
   };
   return (
-    <div className="mt-5">
+    <>
       <Dialog>
         <DialogTrigger asChild>
-          <Button>Add new service</Button>
+          <Button variant="secondary" size="icon">
+            <Edit className="h-4 w-4 text-primary" />
+          </Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add a new service to your offer</DialogTitle>
+            <DialogTitle>Update service</DialogTitle>
           </DialogHeader>
           <Form {...form}>
             <form
@@ -113,15 +120,15 @@ const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
                   {isLoading && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   )}
-                  Add
+                  Update
                 </Button>
               </DialogFooter>
             </form>
           </Form>
         </DialogContent>
       </Dialog>
-    </div>
+    </>
   );
 };
 
-export default AddServiceDialog;
+export default UpdateServiceDialog;

@@ -22,8 +22,11 @@ export async function GET(req: NextApiRequest, _res: Response) {
 
 export async function DELETE(req: Request, _res: NextApiResponse) {
   try {
-    const { id } = await req.json();
-    const deleted_service = await deleteService(id);
+    const url = new URL(req.url as string);
+    const searchParams = new URLSearchParams(url.search);
+    const id = searchParams.get("id");
+
+    const deleted_service = await deleteService(Number(id));
 
     return NextResponse.json({ deleted_service }, { status: 200 });
   } catch (error: any) {
