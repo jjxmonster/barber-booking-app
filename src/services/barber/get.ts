@@ -29,3 +29,17 @@ export const getBarberShopDataForToken = async (
 
   return { name: result?.name ?? "not_found", id: result?.id ?? 0 };
 };
+
+export const getBarberShopByID = async (id: number): Promise<BarberShop> => {
+  const result = await prisma.barberShop.findUnique({
+    where: {
+      id,
+    },
+  });
+
+  if (!result) {
+    throw new Error("Barber Shop not found");
+  }
+
+  return result;
+};
