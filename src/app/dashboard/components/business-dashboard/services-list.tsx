@@ -3,17 +3,18 @@ import React, { FunctionComponent } from "react";
 import { Service } from "@prisma/client";
 import ServiceItem from "./service-item";
 import { useQuery } from "@tanstack/react-query";
+import useServices from "hooks/use-services";
 
 interface ServicesProps {
   barberShopId: number;
+  isForClient: boolean;
 }
 
-const Services: FunctionComponent<ServicesProps> = ({ barberShopId }) => {
-  const { data } = useQuery(["services"], () =>
-    fetch(`/api/services?id=${barberShopId}`).then(res => res.json())
-  );
-
-  const { services } = data || { services: [] };
+const Services: FunctionComponent<ServicesProps> = ({
+  barberShopId,
+  isForClient,
+}) => {
+  const services = useServices(barberShopId);
 
   if (!services.length) {
     return (
@@ -24,7 +25,13 @@ const Services: FunctionComponent<ServicesProps> = ({ barberShopId }) => {
   }
 
   const renderServices = services.map(({ id, name, price }: Service) => (
-    <ServiceItem name={name} price={price} id={id} key={id} />
+    <ServiceItem
+      name={name}
+      price={price}
+      id={id}
+      key={id}
+      isForClient={isForClient}
+    />
   ));
 
   return <div className="grid gap-6 grid-cols-2">{renderServices}</div>;

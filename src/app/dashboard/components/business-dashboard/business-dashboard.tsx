@@ -42,7 +42,10 @@ const BusinessDashboard = () => {
           </CardHeader>
           <CardContent>
             <Suspense fallback={<LoadingIndicator />}>
-              <Services barberShopId={Number(data?.user?.barber_shop_id)} />
+              <Services
+                barberShopId={Number(data?.user?.barber_shop_id)}
+                isForClient={false}
+              />
             </Suspense>
             <AddServiceDialog
               barberShopId={Number(data?.user?.barber_shop_id)}
