@@ -50,8 +50,7 @@ const BarberShopPage: FunctionComponent<BarberShopPageProps> = ({
             </div>
           </div>
           <div className="mt-10">
-            <CardTitle>Employees</CardTitle>
-
+            <CardTitle>Staffers</CardTitle>
             <div className="mt-5">
               <Suspense fallback={<LoadingIndicator />}>
                 <Employees barberShopId={id} />

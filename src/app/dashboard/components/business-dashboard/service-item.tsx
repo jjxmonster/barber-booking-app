@@ -2,9 +2,9 @@ import { Edit, Trash } from "lucide-react";
 import React, { FunctionComponent } from "react";
 
 import { Button } from "components/ui/button";
+import CreateAppointmentDialog from "app/barber-shop/[id]/components/create-appointment-dialog";
 import UpdateServiceDialog from "./update-service-dialog";
 import { formatCurrency } from "lib/utils";
-import useCreateAppointment from "hooks/use-create-appointment";
 import useDeleteService from "hooks/use-delete-service";
 
 interface ServiceItemProps {
@@ -21,7 +21,6 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({
   isForClient,
 }) => {
   const { mutate: delete_service } = useDeleteService();
-  // const {mutate:create_appointment} = useCreateAppointment()
 
   return (
     <div className="text-white p-5 border-l-4 shadow-lg flex items-center justify-between">
@@ -30,7 +29,7 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({
       </div>
       <div className="flex gap-2">
         {isForClient ? (
-          <Button>Book</Button>
+          <CreateAppointmentDialog />
         ) : (
           <>
             <UpdateServiceDialog serviceId={id} name={name} price={price} />
