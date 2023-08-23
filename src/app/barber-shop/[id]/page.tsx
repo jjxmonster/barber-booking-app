@@ -7,6 +7,7 @@ import Employees from "app/dashboard/components/business-dashboard/employees-lis
 import Head from "next/head";
 import Image from "next/image";
 import LoadingIndicator from "components/shared/loading-indicator";
+import { Separator } from "components/ui/separator";
 import Services from "app/dashboard/components/business-dashboard/services-list";
 import { useQuery } from "@tanstack/react-query";
 
@@ -41,7 +42,8 @@ const BarberShopPage: FunctionComponent<BarberShopPageProps> = ({
         <CardContent className="pt-5">
           <p className="text-white text-2xl font-medium">{barber_shop.name}</p>
           <p className="text-gray-500 text-xl font-medium">{`${barber_shop.address}, ${barber_shop.city}`}</p>
-          <div className="mt-10">
+          <Separator className="my-5" />
+          <div>
             <CardTitle>SERVICES</CardTitle>
             <div className="mt-5">
               <Suspense fallback={<LoadingIndicator />}>

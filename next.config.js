@@ -2,6 +2,7 @@
 const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client", "bcrypt"],
+    serverActions: true,
   },
   images: {
     domains: ["images.unsplash.com"],

@@ -29,10 +29,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 interface CreateAppointmentDialogProps {}
 
 const formSchema = z.object({
-  service: z
-    .string()
-    .min(3, { message: "Service must be at least 3 characters." }),
-  price: z.number().min(1, { message: "Price must be greater than zero." }),
+  date: z.date({
+    required_error: "A date of appointment is required",
+  }),
 });
 
 const CreateAppointmentDialog: FunctionComponent<
