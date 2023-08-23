@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 const useServices = (barberShopId: number) => {
-  const { data, error } = useQuery(["services"], () =>
+  const { data } = useQuery(["services"], () =>
     fetch(`/api/services?id=${barberShopId}`).then(res => res.json())
   );
 

@@ -39,8 +39,12 @@ const useAddService = (barberShopId: number, form: UseFormReturn<any>) => {
 
         queryClient.invalidateQueries(["services"]);
       },
-      onError: err => {
-        console.log(err, "ERRRRR");
+      onError: () => {
+        toast({
+          title: "Ooops!",
+          description: "Something went wrong, please try again",
+          variant: "destructive",
+        });
       },
     }
   );

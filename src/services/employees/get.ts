@@ -11,6 +11,10 @@ const getEmployeesForBusiness = async (
     },
   });
 
+  if (!employees) {
+    throw new Error("Employees for Barber Shop not found");
+  }
+
   return employees;
 };
 

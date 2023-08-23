@@ -26,8 +26,12 @@ const useDeleteService = () => {
 
         queryClient.invalidateQueries(["services"]);
       },
-      onError: (err: any) => {
-        console.log(err);
+      onError: () => {
+        toast({
+          title: "Ooops!",
+          description: "Something went wrong, please try again",
+          variant: "destructive",
+        });
       },
     }
   );

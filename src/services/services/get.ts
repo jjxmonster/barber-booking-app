@@ -11,6 +11,10 @@ const getServicesForBusiness = async (
     },
   });
 
+  if (!services) {
+    throw new Error("Services not found");
+  }
+
   return services;
 };
 

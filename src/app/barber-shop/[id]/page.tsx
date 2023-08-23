@@ -9,6 +9,7 @@ import Image from "next/image";
 import LoadingIndicator from "components/shared/loading-indicator";
 import { Separator } from "components/ui/separator";
 import Services from "app/dashboard/components/business-dashboard/services-list";
+import { fetchBarberShop } from "data/barber-shop";
 import { useQuery } from "@tanstack/react-query";
 
 interface BarberShopPageProps {
@@ -18,12 +19,29 @@ interface BarberShopPageProps {
 const BarberShopPage: FunctionComponent<BarberShopPageProps> = ({
   params: { id },
 }) => {
-  const { data } = useQuery(["barber-shop"], () =>
-    fetch(`/api/barber-shop?id=${id}`).then(res => res.json())
+  const { data, isError, isLoading } = useQuery(
+    ["barber-shop"],
+    async () => fetchBarberShop(id),
+    {
+      retry: 2,
+      refetchOnWindowFocus: false,
+    }
   );
 
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
+  if (isError) {
+    return (
+      <div className="w-full flex items-center justify-center mt-20">
+        <p className="text-gray-500 text-xl">Barber Shop not found</p>
+      </div>
+    );
+  }
+
   const { barber_shop } = data;
-  console.log(barber_shop);
+
   return (
     <div className="mt-20 w-full">
       <Head>

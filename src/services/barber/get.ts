@@ -10,6 +10,11 @@ export const getBarberShopsByCity = async (
       city: city,
     },
   });
+
+  if (!result) {
+    throw new Error("Barber Shop not found");
+  }
+
   return result;
 };
 
@@ -27,7 +32,11 @@ export const getBarberShopDataForToken = async (
     },
   });
 
-  return { name: result?.name ?? "not_found", id: result?.id ?? 0 };
+  if (!result) {
+    throw new Error("Barber Shop not found");
+  }
+
+  return { name: result.name, id: result.id };
 };
 
 export const getBarberShopByID = async (id: number): Promise<BarberShop> => {

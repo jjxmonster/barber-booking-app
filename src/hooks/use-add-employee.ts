@@ -34,9 +34,12 @@ const useAddEmployee = (barberShopId: number, form: UseFormReturn<any>) => {
         form.setValue("name", "");
         queryClient.invalidateQueries(["employees"]);
       },
-      onError: err => {
-        // TODO: Handle error
-        console.log(err, "ERRRRR");
+      onError: () => {
+        toast({
+          title: "Ooops!",
+          description: "Something went wrong, please try again",
+          variant: "destructive",
+        });
       },
     }
   );
