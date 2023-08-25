@@ -57,6 +57,7 @@ model Appointment {
   employeeId   Int
   barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
   barberShopId Int
+  appointmentTime String
   date         DateTime   @default(now())
   createdAt    DateTime   @default(now())
 }

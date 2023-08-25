@@ -31,6 +31,7 @@ const Services: FunctionComponent<ServicesProps> = ({
       id={id}
       key={id}
       isForClient={isForClient}
+      barberShopId={barberShopId}
     />
   ));
 

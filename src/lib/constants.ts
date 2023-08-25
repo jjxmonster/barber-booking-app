@@ -101,3 +101,30 @@ export const businessFormSchema = z.object({
     message: "Password must be at least 8 characters.",
   }),
 });
+
+export const appointmentTimeItems = [
+  {
+    value: "8:00",
+  },
+  {
+    value: "9:00",
+  },
+  {
+    value: "10:00",
+  },
+  {
+    value: "11:00",
+  },
+  {
+    value: "12:00",
+  },
+  {
+    value: "13:00",
+  },
+  {
+    value: "14:00",
+  },
+  {
+    value: "15:00",
+  },
+];

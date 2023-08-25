@@ -20,3 +20,12 @@ export type BusinessPayload = {
   address: string;
   city: string;
 };
+
+// APPOINTMENT
+export type AppointmentPayload = {
+  barberShopId: number;
+  employeeId: number;
+  date: Date;
+  appointmentTime: string;
+  clientEmail: string;
+};

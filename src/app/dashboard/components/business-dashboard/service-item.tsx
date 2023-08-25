@@ -12,6 +12,7 @@ interface ServiceItemProps {
   price: number;
   id: number;
   isForClient: boolean;
+  barberShopId: number;
 }
 
 const ServiceItem: FunctionComponent<ServiceItemProps> = ({
@@ -19,6 +20,7 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({
   price,
   id,
   isForClient,
+  barberShopId,
 }) => {
   const { mutate: delete_service } = useDeleteService();
 
@@ -29,7 +31,7 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({
       </div>
       <div className="flex gap-2">
         {isForClient ? (
-          <CreateAppointmentDialog />
+          <CreateAppointmentDialog barberShopId={barberShopId} />
         ) : (
           <>
             <UpdateServiceDialog serviceId={id} name={name} price={price} />
