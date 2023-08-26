@@ -14,11 +14,12 @@ import { useQuery } from "@tanstack/react-query";
 
 interface CreateAppointmentDialogProps {
   barberShopId: number;
+  serviceId: number;
 }
 
 const CreateAppointmentDialog: FunctionComponent<
   CreateAppointmentDialogProps
-> = ({ barberShopId }) => {
+> = ({ barberShopId, serviceId }) => {
   const { data, isError } = useQuery(
     ["employees"],
     async () => fetchEmployeesForBarberShop(barberShopId),
@@ -44,7 +45,11 @@ const CreateAppointmentDialog: FunctionComponent<
               <DialogHeader>
                 <DialogTitle>Book your appointment</DialogTitle>
               </DialogHeader>
-              <CreateAppointmentForm employees={employees} />
+              <CreateAppointmentForm
+                serviceId={serviceId}
+                employees={employees}
+                barberShopId={barberShopId}
+              />
             </>
           )}
         </DialogContent>

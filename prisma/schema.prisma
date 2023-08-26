@@ -8,25 +8,25 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  name        String?
-  email       String        @unique
-  password    String
-  role        Role
-  createdAt   DateTime      @default(now())
-  barberShop  BarberShop?
+  id           Int           @id @default(autoincrement())
+  name         String?
+  email        String        @unique
+  password     String
+  role         Role
+  createdAt    DateTime      @default(now())
+  barberShop   BarberShop?
   Appointments Appointment[]
 }
 
 model BarberShop {
-  id          Int           @id @default(autoincrement())
-  name        String
-  address     String
-  city        String
-  user        User          @relation(fields: [userEmail], references: [email])
-  userEmail   String        @unique
-  imageUrl    String
-  createdAt   DateTime      @default(now())
+  id           Int           @id @default(autoincrement())
+  name         String
+  address      String
+  city         String
+  user         User          @relation(fields: [userEmail], references: [email])
+  userEmail    String        @unique
+  imageUrl     String
+  createdAt    DateTime      @default(now())
   Appointments Appointment[]
   Employees    Employee[]
   Services     Service[]
@@ -36,30 +36,33 @@ model Employee {
   id           Int           @id @default(autoincrement())
   name         String
   avatarUrl    String
-  Appointments  Appointment[]
+  Appointments Appointment[]
   barberShop   BarberShop    @relation(fields: [barberShopId], references: [id])
   barberShopId Int
 }
 
 model Service {
-  id           Int        @id @default(autoincrement())
+  id           Int           @id @default(autoincrement())
   name         String
-  price Int
-  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
+  price        Int
+  barberShop   BarberShop    @relation(fields: [barberShopId], references: [id])
   barberShopId Int
+  Appointment  Appointment[]
 }
 
 model Appointment {
-  id           Int        @id @default(autoincrement())
-  client       User       @relation(fields: [clientEmail], references: [email])
-  clientEmail  String     @unique
-  employee     Employee   @relation(fields: [employeeId], references: [id])
-  employeeId   Int
-  barberShop   BarberShop @relation(fields: [barberShopId], references: [id])
-  barberShopId Int
+  id              Int        @id @unique @default(autoincrement())
+  client          User       @relation(fields: [clientEmail], references: [email])
+  clientEmail     String
+  employee        Employee   @relation(fields: [employeeId], references: [id])
+  employeeId      Int
+  barberShop      BarberShop @relation(fields: [barberShopId], references: [id])
+  barberShopId    Int
+  service         Service    @relation(fields: [serviceId], references: [id])
+  serviceId       Int
   appointmentTime String
-  date         DateTime   @default(now())
-  createdAt    DateTime   @default(now())
+  date            DateTime   @default(now())
+  createdAt       DateTime   @default(now())
 }
 
 enum Role {

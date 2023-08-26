@@ -27,7 +27,9 @@ import { PopoverContent } from "components/ui/popover";
 import { appointmentTimeItems } from "lib/constants";
 import { cn } from "lib/utils";
 import { format } from "date-fns";
+import useCreateAppointment from "hooks/use-create-appointment";
 import { useForm } from "react-hook-form";
+import { useSession } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const formSchema = z.object({
@@ -44,15 +46,26 @@ const formSchema = z.object({
 
 interface CreateAppointmentFormProps {
   employees: Array<Employee>;
+  serviceId: number;
+  barberShopId: number;
 }
 
 const CreateAppointmentForm: FunctionComponent<CreateAppointmentFormProps> = ({
   employees,
+  serviceId,
+  barberShopId,
 }) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {},
   });
+  const { data } = useSession();
+  const { mutate, isLoading } = useCreateAppointment(
+    barberShopId,
+    form,
+    data?.user.email as string,
+    serviceId
+  );
 
   const renderStafferSelectorItems = (employees ?? []).map(
     (employee: Employee) => (
@@ -70,9 +83,9 @@ const CreateAppointmentForm: FunctionComponent<CreateAppointmentFormProps> = ({
     )
   );
 
-  //   const { mutate, isLoading } = useCreateAppointment();
-
-  const onSubmit = async () => {};
+  const onSubmit = async () => {
+    mutate();
+  };
   return (
     <Form {...form}>
       <form
@@ -162,7 +175,7 @@ const CreateAppointmentForm: FunctionComponent<CreateAppointmentFormProps> = ({
         />
         <DialogFooter className="mt-5">
           <Button disabled={false} type="submit">
-            {false && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
             Book
           </Button>
         </DialogFooter>

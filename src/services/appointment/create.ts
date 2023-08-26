@@ -9,11 +9,13 @@ const createAppointment = async ({
   date,
   appointmentTime,
   clientEmail,
+  serviceId,
 }: AppointmentPayload) => {
   const employee = await prisma.appointment.create({
     data: {
-      barberShopId,
-      employeeId,
+      barberShopId: Number(barberShopId),
+      employeeId: Number(employeeId),
+      serviceId: Number(serviceId),
       date,
       appointmentTime,
       clientEmail,

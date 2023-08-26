@@ -28,4 +28,5 @@ export type AppointmentPayload = {
   date: Date;
   appointmentTime: string;
   clientEmail: string;
+  serviceId: number;
 };
