@@ -29,3 +29,13 @@ export const createAppointmentRequest = async (
 
   return await res.json();
 };
+
+export const fetchAppointmentByEmail = async (email: string) => {
+  const response = await fetch(`/api/appointment?email=${email}`);
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return await response.json();
+};

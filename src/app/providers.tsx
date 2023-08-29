@@ -7,9 +7,7 @@ import { SessionProvider } from "next-auth/react";
 
 const queryClient = new QueryClient({
   defaultOptions: {
-    queries: {
-      suspense: true,
-    },
+    queries: {},
   },
 });
 
