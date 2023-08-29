@@ -45,3 +45,13 @@ export const updateServiceRequest = async (
   }
   return await res.json();
 };
+
+export const fetchServicesForBarberShop = async (barberShopId: number) => {
+  const response = await fetch(`/api/services?id=${barberShopId}`);
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return await response.json();
+};

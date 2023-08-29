@@ -2,16 +2,24 @@ import React, { FunctionComponent } from "react";
 
 import { BarberShop } from "@prisma/client";
 import BarberShopCard from "../barber-shop-card";
-import { useQuery } from "@tanstack/react-query";
+import LoadingIndicator from "components/shared/loading-indicator";
+import QueryErrorComponent from "components/shared/query-error-component";
+import useBarberShopsByCity from "hooks/use-barber-shops-by-city";
 
 interface BarberShopsListProps {
   city: string;
 }
 
 const BarberShopsList: FunctionComponent<BarberShopsListProps> = ({ city }) => {
-  const { data } = useQuery(["barber_shops", city], () =>
-    fetch(`/api/barber-shops?city=${city}`).then(res => res.json())
-  );
+  const { data, isLoading, isError } = useBarberShopsByCity(city);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
+  if (isError) {
+    return <QueryErrorComponent />;
+  }
 
   const { barber_shops } = data || { barber_shops: [] };
 

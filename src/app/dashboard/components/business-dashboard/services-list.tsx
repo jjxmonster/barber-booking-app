@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from "react";
 
+import LoadingIndicator from "components/shared/loading-indicator";
+import QueryErrorComponent from "components/shared/query-error-component";
 import { Service } from "@prisma/client";
 import ServiceItem from "./service-item";
 import { useQuery } from "@tanstack/react-query";
@@ -14,7 +16,17 @@ const Services: FunctionComponent<ServicesProps> = ({
   barberShopId,
   isForClient,
 }) => {
-  const services = useServices(barberShopId);
+  const { data, isLoading, isError } = useServices(barberShopId);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
+  if (isError) {
+    return <QueryErrorComponent />;
+  }
+
+  const { services } = data;
 
   if (!services.length) {
     return (

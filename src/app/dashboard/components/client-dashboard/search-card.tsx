@@ -42,11 +42,7 @@ const SearchCard: FunctionComponent<SearchCardProps> = () => {
         </Button>
       </div>
 
-      {showResults && city && (
-        <Suspense fallback={<LoadingIndicator />}>
-          <BarberShopsList city={city} />
-        </Suspense>
-      )}
+      {showResults && city && <BarberShopsList city={city} />}
     </div>
   );
 };

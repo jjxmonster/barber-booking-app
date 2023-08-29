@@ -2,28 +2,23 @@ import React, { FunctionComponent } from "react";
 
 import { Employee } from "@prisma/client";
 import EmployeeCard from "./employee-card";
-import { fetchEmployeesForBarberShop } from "data/employees";
-import { useQuery } from "@tanstack/react-query";
+import LoadingIndicator from "components/shared/loading-indicator";
+import QueryErrorComponent from "components/shared/query-error-component";
+import useEmployees from "hooks/use-employees";
 
 interface EmployeesProps {
   barberShopId: number;
 }
 
 const Employees: FunctionComponent<EmployeesProps> = ({ barberShopId }) => {
-  const { data, isError } = useQuery(
-    ["employees"],
-    () => fetchEmployeesForBarberShop(barberShopId),
-    {
-      retry: 2,
-    }
-  );
+  const { data, isError, isLoading } = useEmployees(barberShopId);
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
 
   if (isError) {
-    return (
-      <div className="w-full h-20 text-gray-400 flex items-center justify-center">
-        <span>Something went wrong, please try again</span>
-      </div>
-    );
+    return <QueryErrorComponent />;
   }
 
   const { employees } = data || { employees: [] };

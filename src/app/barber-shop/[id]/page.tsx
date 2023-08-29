@@ -1,7 +1,7 @@
 "use client";
 
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
-import React, { FunctionComponent, Suspense } from "react";
+import React, { FunctionComponent } from "react";
 
 import Employees from "app/dashboard/components/business-dashboard/employees-list";
 import Head from "next/head";
@@ -64,17 +64,13 @@ const BarberShopPage: FunctionComponent<BarberShopPageProps> = ({
           <div>
             <CardTitle>SERVICES</CardTitle>
             <div className="mt-5">
-              <Suspense fallback={<LoadingIndicator />}>
-                <Services barberShopId={id} isForClient={true} />
-              </Suspense>
+              <Services barberShopId={id} isForClient={true} />
             </div>
           </div>
           <div className="mt-10">
             <CardTitle>Staffers</CardTitle>
             <div className="mt-5">
-              <Suspense fallback={<LoadingIndicator />}>
-                <Employees barberShopId={id} />
-              </Suspense>
+              <Employees barberShopId={id} />
             </div>
           </div>
         </CardContent>
