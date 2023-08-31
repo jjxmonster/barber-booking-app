@@ -21,7 +21,7 @@ const BarberShopsList: FunctionComponent<BarberShopsListProps> = ({ city }) => {
     return <QueryErrorComponent />;
   }
 
-  const { barber_shops } = data || { barber_shops: [] };
+  const { barber_shops }: { barber_shops: Array<BarberShop> } = data;
 
   if (!barber_shops.length) {
     return (

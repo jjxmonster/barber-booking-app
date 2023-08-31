@@ -13,6 +13,10 @@ export const getAppointmentForUser = async (email: string) => {
     orderBy: {
       date: "asc",
     },
+    include: {
+      barberShop: true,
+      service: true,
+    },
   });
 
   if (!appointment) {

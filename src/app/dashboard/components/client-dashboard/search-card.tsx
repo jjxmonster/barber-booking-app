@@ -4,7 +4,6 @@ import BarberShopsList from "./barber-shops-list";
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { Label } from "components/ui/label";
-import LoadingIndicator from "../../../../components/shared/loading-indicator";
 import { useQueryClient } from "@tanstack/react-query";
 
 interface SearchCardProps {}

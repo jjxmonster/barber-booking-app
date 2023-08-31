@@ -11,7 +11,7 @@ const ClientDashboard = () => {
       <div className="gap-10 w-full">
         <Card>
           <CardHeader>
-            <CardTitle>Your appointments</CardTitle>
+            <CardTitle>Your incoming appointment</CardTitle>
           </CardHeader>
           <CardContent>
             <AppointmentCard />

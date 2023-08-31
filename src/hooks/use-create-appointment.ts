@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import { UseFormReturn } from "react-hook-form";
 import { createAppointmentRequest } from "data/appointment";
-import { createEmployeeRequest } from "data/employees";
 import { useToast } from "components/ui/use-toast";
 
 const useCreateAppointment = (
@@ -12,7 +11,6 @@ const useCreateAppointment = (
   serviceId: number
 ) => {
   const { toast } = useToast();
-  const queryClient = useQueryClient();
 
   return useMutation(
     async () =>
@@ -23,8 +21,7 @@ const useCreateAppointment = (
           title: "Done!",
           description: `Appointment has been successfully scheduled`,
         });
-        form.setValue("name", "");
-        queryClient.invalidateQueries(["employees"]);
+        form.reset();
       },
       onError: (err: any) => {
         console.log(err);
