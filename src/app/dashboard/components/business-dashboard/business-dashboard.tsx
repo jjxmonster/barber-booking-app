@@ -6,6 +6,7 @@ import Employees from "./employees-list";
 import React from "react";
 import Services from "./services-list";
 import { useSession } from "next-auth/react";
+import Appointments from "./appointments";
 
 const BusinessDashboard = () => {
   const { data } = useSession();
@@ -29,7 +30,9 @@ const BusinessDashboard = () => {
           <CardHeader>
             <CardTitle>Appointments</CardTitle>
           </CardHeader>
-          <CardContent></CardContent>
+          <CardContent>
+            <Appointments barberShopId={Number(data?.user?.barber_shop_id)} />
+          </CardContent>
         </Card>
       </div>
       <div className="mt-10">

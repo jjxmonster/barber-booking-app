@@ -1,9 +1,9 @@
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 
-import AppointmentCard from "../appointment-card";
 import React from "react";
 import Recommended from "./recommended-barber-shops";
 import SearchCard from "./search-card";
+import IncomingAppointment from "./incoming-appointment";
 
 const ClientDashboard = () => {
   return (
@@ -14,7 +14,7 @@ const ClientDashboard = () => {
             <CardTitle>Your incoming appointment</CardTitle>
           </CardHeader>
           <CardContent>
-            <AppointmentCard />
+            <IncomingAppointment />
           </CardContent>
         </Card>
       </div>

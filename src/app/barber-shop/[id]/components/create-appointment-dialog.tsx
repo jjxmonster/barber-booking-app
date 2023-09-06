@@ -27,7 +27,7 @@ const CreateAppointmentDialog: FunctionComponent<
       retry: 2,
     }
   );
-  const { employees } = data;
+  const { employees } = data ?? { employees: [] };
 
   return (
     <>

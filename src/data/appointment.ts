@@ -39,3 +39,15 @@ export const fetchAppointmentByEmail = async (email: string) => {
 
   return await response.json();
 };
+
+export const fetchAppointmentsByBarberShopId = async (barberShopId: number) => {
+  const response = await fetch(
+    `/api/appointments?barberShopId=${barberShopId}`
+  );
+
+  if (!response.ok) {
+    throw new Error("Network response was not ok");
+  }
+
+  return await response.json();
+};

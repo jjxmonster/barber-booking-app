@@ -5,7 +5,7 @@ import RegisterTabs from "app/register/components/register-tabs";
 
 const Register = () => {
   return (
-    <div>
+    <main>
       <h2 className="text-white text-3xl font-bold">Registration</h2>
       <RegisterTabs />
       <div className="absolute bottom-20 left-0 right-0 m-auto text-white flex justify-center ">
@@ -14,7 +14,7 @@ const Register = () => {
           Sign in
         </Link>
       </div>
-    </div>
+    </main>
   );
 };
 
