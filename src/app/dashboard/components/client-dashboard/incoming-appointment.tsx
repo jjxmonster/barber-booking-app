@@ -1,26 +1,21 @@
 import LoadingIndicator from "components/shared/loading-indicator";
 import QueryErrorComponent from "components/shared/query-error-component";
-import useIncomingAppointment from "hooks/use-incoming-appointment";
+
 import { useSession } from "next-auth/react";
 import React, { FunctionComponent } from "react";
 import AppointmentCard from "../appointment-card";
+import { getAppointmentForUser } from "services/appointment/get";
+import { getServerSession } from "next-auth";
 
 interface IncomingAppointmentProps {}
 
-const IncomingAppointment: FunctionComponent<IncomingAppointmentProps> = () => {
-  const { data: session_data } = useSession();
-  const { data, isLoading, isError } = useIncomingAppointment(
+const IncomingAppointment: FunctionComponent<
+  IncomingAppointmentProps
+> = async () => {
+  const session_data = await getServerSession();
+  const appointment = await getAppointmentForUser(
     session_data?.user.email ?? ""
   );
-  if (isLoading) {
-    return <LoadingIndicator />;
-  }
-
-  if (isError) {
-    return <QueryErrorComponent />;
-  }
-
-  const { appointment } = data;
 
   if (!appointment) {
     return (

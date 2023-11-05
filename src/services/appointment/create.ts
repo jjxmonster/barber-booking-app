@@ -1,3 +1,4 @@
+"use server";
 import { AppointmentPayload } from "types/common";
 import { PrismaClient } from "@prisma/client";
 

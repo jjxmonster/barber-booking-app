@@ -2,26 +2,16 @@ import React, { FunctionComponent } from "react";
 
 import { Employee } from "@prisma/client";
 import EmployeeCard from "./employee-card";
-import LoadingIndicator from "components/shared/loading-indicator";
-import QueryErrorComponent from "components/shared/query-error-component";
-import useEmployees from "hooks/use-employees";
+import getEmployeesForBusiness from "services/employees/get";
 
 interface EmployeesProps {
   barberShopId: number;
 }
 
-const Employees: FunctionComponent<EmployeesProps> = ({ barberShopId }) => {
-  const { data, isError, isLoading } = useEmployees(barberShopId);
-
-  if (isLoading) {
-    return <LoadingIndicator />;
-  }
-
-  if (isError) {
-    return <QueryErrorComponent />;
-  }
-
-  const { employees } = data || { employees: [] };
+const Employees: FunctionComponent<EmployeesProps> = async ({
+  barberShopId,
+}) => {
+  const employees = await getEmployeesForBusiness(barberShopId);
 
   if (!employees.length) {
     return (
@@ -35,7 +25,11 @@ const Employees: FunctionComponent<EmployeesProps> = ({ barberShopId }) => {
     <EmployeeCard key={id} image={avatarUrl} name={name} />
   ));
 
-  return <div className="grid gap-6 grid-cols-4">{renderEmployees}</div>;
+  return (
+    <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+      {renderEmployees}
+    </div>
+  );
 };
 
 export default Employees;

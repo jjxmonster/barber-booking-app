@@ -5,7 +5,7 @@ import { Button } from "components/ui/button";
 import CreateAppointmentDialog from "app/barber-shop/[id]/components/create-appointment-dialog";
 import UpdateServiceDialog from "./update-service-dialog";
 import { formatCurrency } from "lib/utils";
-import useDeleteService from "hooks/use-delete-service";
+import deleteService from "services/services/delete";
 
 interface ServiceItemProps {
   name: string;
@@ -22,8 +22,6 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({
   isForClient,
   barberShopId,
 }) => {
-  const { mutate: delete_service } = useDeleteService();
-
   return (
     <div className="text-white p-5 border-l-4 shadow-lg flex items-center justify-between">
       <div>
@@ -31,17 +29,17 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({
       </div>
       <div className="flex gap-2">
         {isForClient ? (
-          <CreateAppointmentDialog barberShopId={barberShopId} serviceId={id} />
+          // <CreateAppointmentDialog barberShopId={barberShopId} serviceId={id} />
+          <></>
         ) : (
           <>
             <UpdateServiceDialog serviceId={id} name={name} price={price} />
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={() => delete_service(id)}
-            >
-              <Trash className="h-4 w-4 text-destructive" />
-            </Button>
+            <form action={deleteService}>
+              <input type="hidden" name="serviceId" value={id} />
+              <Button type="submit" variant="secondary" size="icon">
+                <Trash className="h-4 w-4 text-destructive" />
+              </Button>
+            </form>
           </>
         )}
       </div>

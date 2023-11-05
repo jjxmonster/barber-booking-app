@@ -5,7 +5,7 @@ const nextConfig = {
     serverActions: true,
   },
   images: {
-    domains: ["images.unsplash.com"],
+    domains: ["images.unsplash.com", "cloudflare-ipfs.com"],
   },
   webpack(config) {
     config.infrastructureLogging = { debug: /PackFileCache/ };

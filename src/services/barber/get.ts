@@ -1,3 +1,5 @@
+"use server";
+
 import { BarberShop, PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();

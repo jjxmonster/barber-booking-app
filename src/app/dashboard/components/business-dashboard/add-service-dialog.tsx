@@ -1,3 +1,4 @@
+"use client";
 import * as z from "zod";
 
 import {
@@ -21,9 +22,10 @@ import React, { FunctionComponent } from "react";
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { Loader2 } from "lucide-react";
-import useAddService from "hooks/use-add-service";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createService } from "app/actions";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
 
 interface AddServiceDialogProps {
   barberShopId: number;
@@ -39,6 +41,8 @@ const formSchema = z.object({
 const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
   barberShopId,
 }) => {
+  const formstatus = useFormStatus();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -46,11 +50,6 @@ const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
     },
   });
 
-  const { mutate, isLoading } = useAddService(barberShopId, form);
-
-  const onSubmit = async () => {
-    mutate();
-  };
   return (
     <div className="mt-5">
       <Dialog>
@@ -63,10 +62,11 @@ const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
           </DialogHeader>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(onSubmit)}
+              action={createService}
               autoComplete="off"
               className="flex flex-col gap-y-3"
             >
+              <input type="hidden" name="barberShopId" value={barberShopId} />
               <FormField
                 control={form.control}
                 name="service"
@@ -110,7 +110,7 @@ const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
               />
               <DialogFooter className="mt-5">
                 <Button disabled={false} type="submit">
-                  {isLoading && (
+                  {formstatus.pending && (
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   )}
                   Add

@@ -1,34 +1,24 @@
-"use client";
-
 import BusinessDashboard from "./components/business-dashboard/business-dashboard";
-import ClientDashboard from "./components/client-dashboard/client-dashboard";
 import React from "react";
 import { Role } from "@prisma/client";
 import { Toaster } from "components/ui/toaster";
-import { redirect } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "app/api/auth/[...nextauth]/route";
+import { notFound } from "next/navigation";
+import ClientDashboard from "./components/client-dashboard/client-dashboard";
 
-const Dashboard = () => {
-  const { status, data } = useSession({
-    required: true,
-    onUnauthenticated() {
-      redirect("/");
-    },
-  });
-
-  if (status === "loading") {
-    return null;
-  }
+const Dashboard = async () => {
+  const session = await getServerSession(authOptions);
 
   const renderDashboard = () => {
-    switch (data.user.role) {
+    switch (session?.user.role) {
       case Role.CLIENT:
         return <ClientDashboard />;
       case Role.SALON_OWNER:
         return <BusinessDashboard />;
 
       default:
-        return null;
+        return notFound();
     }
   };
 

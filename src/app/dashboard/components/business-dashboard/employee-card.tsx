@@ -1,7 +1,6 @@
 import { Card, CardHeader } from "components/ui/card";
 import React, { FunctionComponent } from "react";
 
-import { Button } from "components/ui/button";
 import Image from "next/image";
 
 interface EmployeeCardProps {

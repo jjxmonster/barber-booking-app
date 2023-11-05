@@ -13,7 +13,7 @@ const AuthPageLayout: FunctionComponent<AuthPageLayoutProps> = ({
 }) => {
   return (
     <div className="w-full h-full flex inset-0 fixed">
-      <div className="h-full w-1/2 relative opacity-30">
+      <div className="h-full w-1/2 relative opacity-30 hidden md:block">
         <Image
           alt="brown wooden handled knife on brown wooden chopping board"
           layout="fill"
@@ -21,7 +21,7 @@ const AuthPageLayout: FunctionComponent<AuthPageLayoutProps> = ({
           src="https://images.unsplash.com/photo-1587909209111-5097ee578ec3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80"
         />
       </div>
-      <div className="h-full w-1/2 flex items-center justify-center relative">
+      <div className="h-full w-full md:w-1/2 flex items-center justify-center relative">
         <div className="absolute top-5 right-5">
           <Link href="/">
             <Logo />

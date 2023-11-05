@@ -1,57 +1,60 @@
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 
 import AddEmployeeDialog from "./add-employee-dialog";
-import AddServiceDialog from "./add-service-dialog";
 import Employees from "./employees-list";
-import React from "react";
-import Services from "./services-list";
-import { useSession } from "next-auth/react";
+import React, { Suspense } from "react";
 import Appointments from "./appointments";
+import { getServerSession } from "next-auth";
+import { authOptions } from "app/api/auth/[...nextauth]/route";
+import LoadingIndicator from "components/shared/loading-indicator";
 
-const BusinessDashboard = () => {
-  const { data } = useSession();
+const BusinessDashboard = async () => {
+  const session = await getServerSession(authOptions);
   return (
     <>
-      <div className="gap-10 w-full">
+      <section className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>Employees</CardTitle>
           </CardHeader>
           <CardContent>
-            <Employees barberShopId={Number(data?.user?.barber_shop_id)} />
+            <Employees barberShopId={Number(session?.user.barber_shop_id)} />
             <AddEmployeeDialog
-              barberShopId={Number(data?.user?.barber_shop_id)}
+              barberShopId={Number(session?.user.barber_shop_id)}
             />
           </CardContent>
         </Card>
-      </div>
-      <div className="mt-10">
+      </section>
+      <section className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>Appointments</CardTitle>
           </CardHeader>
           <CardContent>
-            <Appointments barberShopId={Number(data?.user?.barber_shop_id)} />
+            <Suspense fallback={<LoadingIndicator />}>
+              <Appointments
+                barberShopId={Number(session?.user?.barber_shop_id)}
+              />
+            </Suspense>
           </CardContent>
         </Card>
-      </div>
-      <div className="mt-10">
+      </section>
+      {/*  <section className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>SERVICES</CardTitle>
           </CardHeader>
           <CardContent>
             <Services
-              barberShopId={Number(data?.user?.barber_shop_id)}
+              barberShopId={Number(session?.user?.barber_shop_id)}
               isForClient={false}
             />
-
             <AddServiceDialog
-              barberShopId={Number(data?.user?.barber_shop_id)}
+              barberShopId={Number(session?.user?.barber_shop_id)}
             />
           </CardContent>
-        </Card>
-      </div>
+        </Card> 
+      </section>*/}
     </>
   );
 };

@@ -1,3 +1,4 @@
+"use client";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +12,7 @@ import { Button } from "components/ui/button";
 import CreateAppointmentForm from "./create-appointment-form";
 import { fetchEmployeesForBarberShop } from "data/employees";
 import { useQuery } from "@tanstack/react-query";
+import getEmployeesForBusiness from "services/employees/get";
 
 interface CreateAppointmentDialogProps {
   barberShopId: number;
@@ -27,6 +29,8 @@ const CreateAppointmentDialog: FunctionComponent<
       retry: 2,
     }
   );
+
+  // const employees = getEmployeesForBusiness(barberShopId);
   const { employees } = data ?? { employees: [] };
 
   return (

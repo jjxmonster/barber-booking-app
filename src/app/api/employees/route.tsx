@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 import { NextResponse } from "next/server";
-import createEmployee from "services/employees/create";
+import { createEmployee } from "services/employees/create";
 import getEmployeesForBusiness from "services/employees/get";
 
 export async function GET(req: NextApiRequest, _res: Response) {
@@ -21,7 +21,7 @@ export async function GET(req: NextApiRequest, _res: Response) {
 export async function POST(req: Request, res: NextApiResponse) {
   try {
     const { name, barberShopId } = await req.json();
-    const employee = await createEmployee(name, barberShopId);
+    const employee = await createEmployee(name);
 
     return NextResponse.json({ employee }, { status: 200 });
   } catch (error: any) {

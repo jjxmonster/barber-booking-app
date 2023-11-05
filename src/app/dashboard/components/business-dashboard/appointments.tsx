@@ -1,30 +1,23 @@
-import { Appointment } from "@prisma/client";
-import LoadingIndicator from "components/shared/loading-indicator";
-import QueryErrorComponent from "components/shared/query-error-component";
-import useAppointments from "hooks/use-appointments";
 import React, { FunctionComponent } from "react";
 import AppointmentCard from "../appointment-card";
+import { getAppointmentsForBarberShop } from "services/appointment/get";
+import QueryErrorComponent from "components/shared/query-error-component";
 
 interface AppointmentsProps {
   barberShopId: number;
 }
 
-const Appointments: FunctionComponent<AppointmentsProps> = ({
+const Appointments: FunctionComponent<AppointmentsProps> = async ({
   barberShopId,
 }) => {
-  const { data, isLoading, isError } = useAppointments(barberShopId);
-  if (isLoading) {
-    return <LoadingIndicator />;
-  }
+  const appointments = await getAppointmentsForBarberShop(barberShopId);
 
-  if (isError) {
+  if (!appointments) {
     return <QueryErrorComponent />;
   }
 
-  const { appointments } = data;
-
   return (
-    <ul>
+    <ul className="flex gap-2">
       {appointments.map((appointment: any) => {
         const { id, appointmentTime, date, barberShop, service } = appointment;
 

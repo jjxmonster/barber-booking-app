@@ -1,32 +1,24 @@
 import React, { FunctionComponent } from "react";
 
-import LoadingIndicator from "components/shared/loading-indicator";
 import QueryErrorComponent from "components/shared/query-error-component";
 import { Service } from "@prisma/client";
 import ServiceItem from "./service-item";
-import { useQuery } from "@tanstack/react-query";
-import useServices from "hooks/use-services";
+import getServicesForBusiness from "services/services/get";
 
 interface ServicesProps {
   barberShopId: number;
   isForClient: boolean;
 }
 
-const Services: FunctionComponent<ServicesProps> = ({
+const Services: FunctionComponent<ServicesProps> = async ({
   barberShopId,
   isForClient,
 }) => {
-  const { data, isLoading, isError } = useServices(barberShopId);
+  const services = await getServicesForBusiness(barberShopId);
 
-  if (isLoading) {
-    return <LoadingIndicator />;
-  }
-
-  if (isError) {
+  if (!services) {
     return <QueryErrorComponent />;
   }
-
-  const { services } = data;
 
   if (!services.length) {
     return (
@@ -47,7 +39,7 @@ const Services: FunctionComponent<ServicesProps> = ({
     />
   ));
 
-  return <div className="grid gap-6 grid-cols-2">{renderServices}</div>;
+  return <div className="grid gap-6  md:grid-cols-2">{renderServices}</div>;
 };
 
 export default Services;

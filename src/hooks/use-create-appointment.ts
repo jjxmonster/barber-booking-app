@@ -23,8 +23,7 @@ const useCreateAppointment = (
         });
         form.reset();
       },
-      onError: (err: any) => {
-        console.log(err);
+      onError: () => {
         toast({
           title: "Ooops!",
           description: "Something went wrong, please try again",
