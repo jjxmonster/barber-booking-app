@@ -39,7 +39,7 @@ const Services: FunctionComponent<ServicesProps> = async ({
     />
   ));
 
-  return <div className="grid gap-6  md:grid-cols-2">{renderServices}</div>;
+  return <div className="grid gap-6 md:grid-cols-2">{renderServices}</div>;
 };
 
 export default Services;

@@ -1,4 +1,3 @@
-"use client";
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
 
 import React from "react";
@@ -9,7 +8,7 @@ import IncomingAppointment from "./incoming-appointment";
 const ClientDashboard = () => {
   return (
     <>
-      <div className="gap-10 w-full">
+      <section className="gap-10 w-full">
         <Card>
           <CardHeader>
             <CardTitle>Your incoming appointment</CardTitle>
@@ -18,8 +17,8 @@ const ClientDashboard = () => {
             <IncomingAppointment />
           </CardContent>
         </Card>
-      </div>
-      <div className="mt-10">
+      </section>
+      {/* <section className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>Recommended for you</CardTitle>
@@ -28,8 +27,8 @@ const ClientDashboard = () => {
             <Recommended />
           </CardContent>
         </Card>
-      </div>
-      <div className="mt-10">
+      </section>
+      <section className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>Explore</CardTitle>
@@ -38,7 +37,7 @@ const ClientDashboard = () => {
             <SearchCard />
           </CardContent>
         </Card>
-      </div>
+      </section> */}
     </>
   );
 };

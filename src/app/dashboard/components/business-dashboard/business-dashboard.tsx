@@ -7,6 +7,8 @@ import Appointments from "./appointments";
 import { getServerSession } from "next-auth";
 import { authOptions } from "app/api/auth/[...nextauth]/route";
 import LoadingIndicator from "components/shared/loading-indicator";
+import Services from "./services-list";
+import AddServiceDialog from "./add-service-dialog";
 
 const BusinessDashboard = async () => {
   const session = await getServerSession(authOptions);
@@ -39,7 +41,7 @@ const BusinessDashboard = async () => {
           </CardContent>
         </Card>
       </section>
-      {/*  <section className="mt-10">
+      <section className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>SERVICES</CardTitle>
@@ -49,12 +51,12 @@ const BusinessDashboard = async () => {
               barberShopId={Number(session?.user?.barber_shop_id)}
               isForClient={false}
             />
-            <AddServiceDialog
+            {/* <AddServiceDialog
               barberShopId={Number(session?.user?.barber_shop_id)}
-            />
+            /> */}
           </CardContent>
-        </Card> 
-      </section>*/}
+        </Card>
+      </section>
     </>
   );
 };

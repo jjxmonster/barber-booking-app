@@ -21,11 +21,10 @@ import React, { FunctionComponent } from "react";
 
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
-import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createService } from "app/actions";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import SubmitButton from "components/shared/submit-button";
 
 interface AddServiceDialogProps {
   barberShopId: number;
@@ -41,8 +40,6 @@ const formSchema = z.object({
 const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
   barberShopId,
 }) => {
-  const formstatus = useFormStatus();
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -109,12 +106,7 @@ const AddServiceDialog: FunctionComponent<AddServiceDialogProps> = ({
                 }}
               />
               <DialogFooter className="mt-5">
-                <Button disabled={false} type="submit">
-                  {formstatus.pending && (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Add
-                </Button>
+                <SubmitButton label="Add" />
               </DialogFooter>
             </form>
           </Form>

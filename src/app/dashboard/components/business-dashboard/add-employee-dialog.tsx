@@ -21,18 +21,16 @@ import React from "react";
 
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
-import { Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createEmployee } from "app/actions";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import SubmitButton from "components/shared/submit-button";
 
 const formSchema = z.object({
   name: z.string().min(5, { message: "Name must be at least 5 characters." }),
 });
 
 const AddEmployeeDialog = ({ barberShopId }: { barberShopId: number }) => {
-  const formstatus = useFormStatus();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -67,12 +65,7 @@ const AddEmployeeDialog = ({ barberShopId }: { barberShopId: number }) => {
                 )}
               />
               <DialogFooter className="mt-5">
-                <Button disabled={formstatus.pending} type="submit">
-                  {formstatus.pending && (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Add
-                </Button>
+                <SubmitButton label="Add" />
               </DialogFooter>
             </form>
           </Form>

@@ -23,8 +23,10 @@ import React, { FunctionComponent } from "react";
 import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { useForm } from "react-hook-form";
-import useUpdateService from "hooks/use-update-service";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { experimental_useFormStatus as useFormStatus } from "react-dom";
+import updateService from "app/actions";
+import SubmitButton from "components/shared/submit-button";
 
 interface UpdateServiceDialogProps {
   serviceId: number;
@@ -52,11 +54,6 @@ const UpdateServiceDialog: FunctionComponent<UpdateServiceDialogProps> = ({
     },
   });
 
-  const { mutate, isLoading } = useUpdateService(form);
-
-  const onSubmit = async () => {
-    mutate(serviceId);
-  };
   return (
     <>
       <Dialog>
@@ -71,10 +68,11 @@ const UpdateServiceDialog: FunctionComponent<UpdateServiceDialogProps> = ({
           </DialogHeader>
           <Form {...form}>
             <form
-              onSubmit={form.handleSubmit(onSubmit)}
+              action={updateService}
               autoComplete="off"
               className="flex flex-col gap-y-3"
             >
+              <input type="hidden" name="id" value={serviceId} />
               <FormField
                 control={form.control}
                 name="service"
@@ -117,12 +115,7 @@ const UpdateServiceDialog: FunctionComponent<UpdateServiceDialogProps> = ({
                 }}
               />
               <DialogFooter className="mt-5">
-                <Button disabled={false} type="submit">
-                  {isLoading && (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  )}
-                  Update
-                </Button>
+                <SubmitButton label="Update" />
               </DialogFooter>
             </form>
           </Form>

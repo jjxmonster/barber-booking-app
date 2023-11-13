@@ -33,3 +33,19 @@ export const createService = async (formData: FormData) => {
 
   return service;
 };
+
+const updateService = async (formData: FormData) => {
+  const service = await prisma.service.update({
+    where: {
+      id: Number(formData.get("id")),
+    },
+    data: {
+      name: formData.get("service") as string,
+      price: Number(formData.get("price")) as unknown as number,
+    },
+  });
+
+  return service;
+};
+
+export default updateService;
