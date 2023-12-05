@@ -17,3 +17,11 @@ export const fetchBarberShopsByCity = async (city: string) => {
 
   return await response.json();
 };
+export const fetchReccomendedBarberShops = async () => {
+  const response = await fetch(`/api/barber-shops`);
+
+  if (!response.ok) {
+    throw new Error("Failed to fetch Barber Shops");
+  }
+  return response.json();
+};

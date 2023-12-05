@@ -7,13 +7,18 @@ import { authOptions } from "app/api/auth/[...nextauth]/route";
 import { notFound } from "next/navigation";
 import ClientDashboard from "./components/client-dashboard/client-dashboard";
 
-const Dashboard = async () => {
+const Dashboard = async ({
+  searchParams,
+}: {
+  searchParams: { city?: string };
+}) => {
   const session = await getServerSession(authOptions);
+  const { city } = searchParams;
 
   const renderDashboard = () => {
     switch (session?.user.role) {
       case Role.CLIENT:
-        return <ClientDashboard />;
+        return <ClientDashboard city={city} />;
       case Role.SALON_OWNER:
         return <BusinessDashboard />;
 

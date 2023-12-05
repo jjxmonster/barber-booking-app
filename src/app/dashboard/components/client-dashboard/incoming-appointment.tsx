@@ -12,7 +12,7 @@ const IncomingAppointment: FunctionComponent<
   const appointment = await getAppointmentForUser(
     session_data?.user.email ?? ""
   );
-  console.log(appointment);
+
   if (!appointment) {
     return (
       <div className="w-full h-20 text-gray-400 flex items-center justify-center">

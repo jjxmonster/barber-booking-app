@@ -1,21 +1,27 @@
-import React, { FunctionComponent, Suspense, useEffect, useState } from "react";
+"use client";
 
-import BarberShopsList from "./barber-shops-list";
-import { Button } from "components/ui/button";
+import React, { ChangeEvent, FunctionComponent, useRef } from "react";
+
 import { Input } from "components/ui/input";
 import { Label } from "components/ui/label";
-import { useQueryClient } from "@tanstack/react-query";
+import { useRouter } from "next/navigation";
 
-interface SearchCardProps {}
+const SearchCard = () => {
+  const router = useRouter();
 
-const SearchCard: FunctionComponent<SearchCardProps> = () => {
-  const [city, setCity] = useState<string | null>(null);
-  const [showResults, setShowResults] = useState<boolean>(false);
-  const queryClient = useQueryClient();
+  const timeoutId = useRef<ReturnType<typeof setInterval>>();
 
-  useEffect(() => {
-    setShowResults(false);
-  }, [city]);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    clearTimeout(timeoutId.current);
+
+    const city = e.target.value;
+
+    timeoutId.current = setTimeout(() => {
+      city.length
+        ? router.replace(`/dashboard?city=${city.toLowerCase()}`)
+        : router.replace(`/dashboard`);
+    }, 500);
+  };
 
   return (
     <div className="h-auto">
@@ -24,24 +30,12 @@ const SearchCard: FunctionComponent<SearchCardProps> = () => {
       </Label>
       <div className="flex pt-2 w-full max-w-sm items-center space-x-2">
         <Input
-          onChange={e => setCity(e.target.value)}
-          value={city ?? ""}
+          onChange={handleChange}
           id="city"
           type="text"
           placeholder="New York"
         />
-        <Button
-          onClick={() => {
-            queryClient.invalidateQueries(["barber_shops"]);
-            setShowResults(true);
-          }}
-          type="submit"
-        >
-          Search
-        </Button>
       </div>
-
-      {showResults && city && <BarberShopsList city={city} />}
     </div>
   );
 };

@@ -9,7 +9,10 @@ export const getBarberShopsByCity = async (
 ): Promise<Array<BarberShop>> => {
   const result = await prisma.barberShop.findMany({
     where: {
-      city: city,
+      city: {
+        equals: city,
+        mode: "insensitive",
+      },
     },
   });
 
@@ -22,6 +25,11 @@ export const getBarberShopsByCity = async (
 
 export const getBarberShops = async (): Promise<Array<BarberShop>> => {
   const result = await prisma.barberShop.findMany();
+
+  if (!result) {
+    throw new Error("Something went wrong");
+  }
+
   return result;
 };
 

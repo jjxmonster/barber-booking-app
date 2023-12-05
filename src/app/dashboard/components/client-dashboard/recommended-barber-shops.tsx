@@ -2,14 +2,10 @@ import * as React from "react";
 
 import { BarberShop } from "@prisma/client";
 import BarberShopCard from "../barber-shop-card";
-import { useQuery } from "@tanstack/react-query";
+import { getBarberShops } from "services/barber/get";
 
-const Recommended = () => {
-  const { data } = useQuery(["barber_shops"], () =>
-    fetch(`/api/barber-shops`).then(res => res.json())
-  );
-
-  const { barber_shops } = data || { barber_shops: [] };
+const Recommended = async () => {
+  const barber_shops = await getBarberShops();
 
   const renderBarberShops = barber_shops.map(
     ({ id, name, address, city, imageUrl }: BarberShop) => {

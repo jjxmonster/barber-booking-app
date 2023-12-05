@@ -4,8 +4,13 @@ import React from "react";
 import Recommended from "./recommended-barber-shops";
 import SearchCard from "./search-card";
 import IncomingAppointment from "./incoming-appointment";
+import BarberShopsList from "./barber-shops-list";
 
-const ClientDashboard = () => {
+interface ClientDashboardProps {
+  city?: string;
+}
+
+const ClientDashboard = ({ city }: ClientDashboardProps) => {
   return (
     <>
       <section className="gap-10 w-full">
@@ -18,7 +23,7 @@ const ClientDashboard = () => {
           </CardContent>
         </Card>
       </section>
-      {/* <section className="mt-10">
+      <section className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>Recommended for you</CardTitle>
@@ -35,9 +40,10 @@ const ClientDashboard = () => {
           </CardHeader>
           <CardContent>
             <SearchCard />
+            {city && <BarberShopsList city={city} />}
           </CardContent>
         </Card>
-      </section> */}
+      </section>
     </>
   );
 };
