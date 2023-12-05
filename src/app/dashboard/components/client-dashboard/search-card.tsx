@@ -1,6 +1,6 @@
 "use client";
 
-import React, { ChangeEvent, FunctionComponent, useRef } from "react";
+import React, { ChangeEvent, useRef } from "react";
 
 import { Input } from "components/ui/input";
 import { Label } from "components/ui/label";
@@ -13,7 +13,7 @@ const SearchCard = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     clearTimeout(timeoutId.current);
-
+    console.log("e.target.value", e.target.value);
     const city = e.target.value;
 
     timeoutId.current = setTimeout(() => {

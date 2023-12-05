@@ -2,17 +2,12 @@ import React, { FunctionComponent } from "react";
 
 import { Employee } from "@prisma/client";
 import EmployeeCard from "./employee-card";
-import getEmployeesForBusiness from "services/employees/get";
 
 interface EmployeesProps {
-  barberShopId: number;
+  employees: Employee[];
 }
 
-const Employees: FunctionComponent<EmployeesProps> = async ({
-  barberShopId,
-}) => {
-  const employees = await getEmployeesForBusiness(barberShopId);
-
+const Employees: FunctionComponent<EmployeesProps> = async ({ employees }) => {
   if (!employees.length) {
     return (
       <div className="w-full h-20 text-gray-400 flex items-center justify-center">
