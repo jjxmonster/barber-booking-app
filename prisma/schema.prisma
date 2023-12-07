@@ -28,8 +28,8 @@ model BarberShop {
   imageUrl     String
   createdAt    DateTime      @default(now())
   Appointments Appointment[]
-  Employees    Employee[]
-  Services     Service[]
+  employees    Employee[]
+  services     Service[]
 }
 
 model Employee {

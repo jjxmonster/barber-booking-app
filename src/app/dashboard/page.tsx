@@ -4,7 +4,7 @@ import { Role } from "@prisma/client";
 import { Toaster } from "components/ui/toaster";
 import { getServerSession } from "next-auth";
 import { authOptions } from "app/api/auth/[...nextauth]/route";
-import { notFound } from "next/navigation";
+import { redirect } from "next/navigation";
 import ClientDashboard from "./components/client-dashboard/client-dashboard";
 
 const Dashboard = async ({
@@ -23,15 +23,15 @@ const Dashboard = async ({
         return <BusinessDashboard />;
 
       default:
-        return notFound();
+        return redirect("/login");
     }
   };
 
   return (
-    <main className="mt-20 w-full">
+    <div className="mt-20 w-full">
       <Toaster />
       {renderDashboard()}
-    </main>
+    </div>
   );
 };
 

@@ -29,8 +29,7 @@ const ServiceItem: FunctionComponent<ServiceItemProps> = ({
       </div>
       <div className="flex gap-2">
         {isForClient ? (
-          // <CreateAppointmentDialog barberShopId={barberShopId} serviceId={id} />
-          <></>
+          <CreateAppointmentDialog barberShopId={barberShopId} serviceId={id} />
         ) : (
           <>
             <UpdateServiceDialog serviceId={id} name={name} price={price} />

@@ -13,6 +13,7 @@ import CreateAppointmentForm from "./create-appointment-form";
 import { fetchEmployeesForBarberShop } from "data/employees";
 import { useQuery } from "@tanstack/react-query";
 import getEmployeesForBusiness from "services/employees/get";
+import { getBarberShopByID } from "services/barber/get";
 
 interface CreateAppointmentDialogProps {
   barberShopId: number;
@@ -22,15 +23,10 @@ interface CreateAppointmentDialogProps {
 const CreateAppointmentDialog: FunctionComponent<
   CreateAppointmentDialogProps
 > = ({ barberShopId, serviceId }) => {
-  const { data, isError } = useQuery(
-    ["employees"],
-    async () => fetchEmployeesForBarberShop(barberShopId),
-    {
-      retry: 2,
-    }
+  const { data, isError } = useQuery(["barberShop", barberShopId], () =>
+    getBarberShopByID(barberShopId)
   );
 
-  // const employees = getEmployeesForBusiness(barberShopId);
   const { employees } = data ?? { employees: [] };
 
   return (

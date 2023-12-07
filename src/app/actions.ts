@@ -31,6 +31,8 @@ export const createService = async (formData: FormData) => {
     },
   });
 
+  revalidatePath("/dashboard");
+
   return service;
 };
 
@@ -44,6 +46,8 @@ const updateService = async (formData: FormData) => {
       price: Number(formData.get("price")) as unknown as number,
     },
   });
+
+  revalidatePath("/dashboard");
 
   return service;
 };

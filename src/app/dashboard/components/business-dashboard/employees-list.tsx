@@ -1,13 +1,23 @@
+"use client";
 import React, { FunctionComponent } from "react";
 
 import { Employee } from "@prisma/client";
 import EmployeeCard from "./employee-card";
 
+import { getBarberShopByID } from "services/barber/get";
+import { useQuery } from "@tanstack/react-query";
+
 interface EmployeesProps {
-  employees: Employee[];
+  barberShopId: number;
 }
 
-const Employees: FunctionComponent<EmployeesProps> = async ({ employees }) => {
+const Employees: FunctionComponent<EmployeesProps> = ({ barberShopId }) => {
+  const { data } = useQuery(["barberShop", barberShopId], () =>
+    getBarberShopByID(barberShopId)
+  );
+
+  const { employees } = data ?? { employees: [] };
+
   if (!employees.length) {
     return (
       <div className="w-full h-20 text-gray-400 flex items-center justify-center">

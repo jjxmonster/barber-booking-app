@@ -1,9 +1,12 @@
-import NavBar from "components/shared/nav-bar";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
-  return (
-    <>
-      <NavBar />
-    </>
-  );
+  const session = await getServerSession();
+
+  if (session) {
+    redirect("/dashboard");
+  }
+
+  return <></>;
 }

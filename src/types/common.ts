@@ -1,4 +1,4 @@
-import { Role, User } from "@prisma/client";
+import { Role, User, BarberShop, Service, Employee } from "@prisma/client";
 
 // USER
 export type AuthorizeUserPayload = Pick<User, "email" | "role" | "name"> & {
@@ -29,4 +29,9 @@ export type AppointmentPayload = {
   appointmentTime: string;
   clientEmail: string;
   serviceId: number;
+};
+
+export type BarberShopType = Partial<BarberShop> & {
+  services: Service[];
+  employees: Employee[];
 };

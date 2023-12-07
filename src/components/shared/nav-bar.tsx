@@ -6,14 +6,22 @@ import { signOut, useSession } from "next-auth/react";
 import { Button } from "components/ui/button";
 import Link from "next/link";
 import Logo from "./logo";
+import { useParams, usePathname, useRouter } from "next/navigation";
 
 const styles = {
   navbar: "w-full py-5 flex justify-between",
   buttons_wrapper: "flex gap-5",
 };
 
+const pathnamesToHide = ["/login", "/register"];
+
 const NavBar: FunctionComponent = () => {
   const { data } = useSession();
+  const pathname = usePathname();
+
+  if (pathnamesToHide.includes(pathname)) {
+    return null;
+  }
 
   return (
     <nav className={styles.navbar}>

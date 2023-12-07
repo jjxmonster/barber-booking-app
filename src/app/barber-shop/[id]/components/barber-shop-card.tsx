@@ -4,18 +4,33 @@ import { Separator } from "components/ui/separator";
 import Services from "app/dashboard/components/business-dashboard/services-list";
 import Employees from "app/dashboard/components/business-dashboard/employees-list";
 import { Card, CardContent, CardHeader, CardTitle } from "components/ui/card";
-import { BarberShop, Employee } from "@prisma/client";
+import { BarberShopType } from "types/common";
+import { useQuery } from "@tanstack/react-query";
+import { getBarberShopByID } from "services/barber/get";
+import LoadingIndicator from "components/shared/loading-indicator";
 
 interface BarberShopCardProps {
-  barber_shop: BarberShop;
-  employees: Employee[];
+  barberShopId: number;
 }
 
-export const BarberShopCard = ({
-  barber_shop,
-  employees,
-}: BarberShopCardProps) => {
-  const { id } = barber_shop;
+export const BarberShopCard = ({ barberShopId }: BarberShopCardProps) => {
+  const { data: barber_shop, isLoading } = useQuery({
+    queryKey: ["barberShop", barberShopId],
+    queryFn: () => getBarberShopByID(barberShopId),
+  });
+
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
+  if (!barber_shop) {
+    return (
+      <div className="w-full flex items-center justify-center mt-20">
+        <p className="text-gray-500 text-xl">Barber Shop not found</p>
+      </div>
+    );
+  }
+
   return (
     <Card>
       <CardHeader className="relative h-[500px]">
@@ -23,7 +38,7 @@ export const BarberShopCard = ({
           layout="fill"
           objectFit="cover"
           className="w-full rounded-xl p-5"
-          src={barber_shop.imageUrl}
+          src={barber_shop.imageUrl as string}
           alt={`${barber_shop.name} - Image`}
         />
       </CardHeader>
@@ -34,13 +49,13 @@ export const BarberShopCard = ({
         <div>
           <CardTitle>SERVICES</CardTitle>
           <div className="mt-5">
-            <Services barberShopId={id} isForClient={true} />
+            <Services barberShopId={barberShopId} isForClient={true} />
           </div>
         </div>
         <div className="mt-10">
           <CardTitle>Staffers</CardTitle>
           <div className="mt-5">
-            <Employees employees={employees} />
+            <Employees barberShopId={barberShopId} />
           </div>
         </div>
       </CardContent>

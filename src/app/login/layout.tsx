@@ -12,9 +12,5 @@ export default function LoginLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return (
-    <section>
-      <AuthPageLayout>{children}</AuthPageLayout>
-    </section>
-  );
+  return <AuthPageLayout>{children}</AuthPageLayout>;
 }

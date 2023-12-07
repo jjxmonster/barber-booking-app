@@ -1,20 +1,26 @@
+"use client";
 import React, { FunctionComponent } from "react";
 
 import QueryErrorComponent from "components/shared/query-error-component";
 import { Service } from "@prisma/client";
 import ServiceItem from "./service-item";
-import getServicesForBusiness from "services/services/get";
+import { useQuery } from "@tanstack/react-query";
+import { getBarberShopByID } from "services/barber/get";
 
 interface ServicesProps {
-  barberShopId: number;
   isForClient: boolean;
+  barberShopId: number;
 }
 
-const Services: FunctionComponent<ServicesProps> = async ({
+const Services: FunctionComponent<ServicesProps> = ({
   barberShopId,
   isForClient,
 }) => {
-  const services = await getServicesForBusiness(barberShopId);
+  const { data } = useQuery(["barberShop", barberShopId], () =>
+    getBarberShopByID(barberShopId)
+  );
+
+  const { services } = data ?? { services: [] };
 
   if (!services) {
     return <QueryErrorComponent />;

@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "components/ui/dialog";
-import { Edit, Loader2 } from "lucide-react";
+import { Edit } from "lucide-react";
 import {
   Form,
   FormControl,
@@ -24,7 +24,6 @@ import { Button } from "components/ui/button";
 import { Input } from "components/ui/input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import updateService from "app/actions";
 import SubmitButton from "components/shared/submit-button";
 

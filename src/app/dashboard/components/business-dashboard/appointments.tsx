@@ -17,7 +17,7 @@ const Appointments: FunctionComponent<AppointmentsProps> = async ({
   }
 
   return (
-    <ul className="flex md:flex-row flex-col gap-5">
+    <ul className="grid md:grid-cols-2 gap-3">
       {appointments.map((appointment: any) => {
         const { id, appointmentTime, date, barberShop, service } = appointment;
 

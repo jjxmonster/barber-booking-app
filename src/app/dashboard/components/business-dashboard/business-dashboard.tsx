@@ -10,17 +10,27 @@ import LoadingIndicator from "components/shared/loading-indicator";
 import Services from "./services-list";
 import AddServiceDialog from "./add-service-dialog";
 
+import { getBarberShopByID } from "services/barber/get";
+import { Hydrate, QueryClient, dehydrate } from "@tanstack/react-query";
+
 const BusinessDashboard = async () => {
   const session = await getServerSession(authOptions);
+
+  const barber_shop_id = session?.user.barber_shop_id;
+
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery(["barberShop", barber_shop_id], () =>
+    getBarberShopByID(barber_shop_id!)
+  );
   return (
-    <>
+    <Hydrate state={dehydrate(queryClient)}>
       <section className="mt-10">
         <Card>
           <CardHeader>
             <CardTitle>Employees</CardTitle>
           </CardHeader>
           <CardContent>
-            <Employees barberShopId={Number(session?.user.barber_shop_id)} />
+            <Employees barberShopId={barber_shop_id!} />
             <AddEmployeeDialog
               barberShopId={Number(session?.user.barber_shop_id)}
             />
@@ -51,13 +61,13 @@ const BusinessDashboard = async () => {
               barberShopId={Number(session?.user?.barber_shop_id)}
               isForClient={false}
             />
-            {/* <AddServiceDialog
+            <AddServiceDialog
               barberShopId={Number(session?.user?.barber_shop_id)}
-            /> */}
+            />
           </CardContent>
         </Card>
       </section>
-    </>
+    </Hydrate>
   );
 };
 

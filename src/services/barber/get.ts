@@ -1,6 +1,7 @@
 "use server";
 
 import { BarberShop, PrismaClient } from "@prisma/client";
+import { BarberShopType } from "types/common";
 
 const prisma = new PrismaClient();
 
@@ -49,10 +50,16 @@ export const getBarberShopDataForToken = async (
   return { name: result.name, id: result.id };
 };
 
-export const getBarberShopByID = async (id: number): Promise<BarberShop> => {
+export const getBarberShopByID = async (
+  id: number
+): Promise<BarberShopType> => {
   const result = await prisma.barberShop.findUnique({
     where: {
       id,
+    },
+    include: {
+      services: true,
+      employees: true,
     },
   });
 
