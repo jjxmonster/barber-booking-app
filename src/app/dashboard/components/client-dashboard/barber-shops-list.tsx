@@ -4,10 +4,7 @@ import React, { FunctionComponent } from "react";
 
 import { BarberShop } from "@prisma/client";
 import BarberShopCard from "../barber-shop-card";
-import LoadingIndicator from "components/shared/loading-indicator";
 import QueryErrorComponent from "components/shared/query-error-component";
-import useBarberShopsByCity from "hooks/use-barber-shops-by-city";
-import { fetchBarberShopsByCity } from "data/barber-shop";
 import { getBarberShopsByCity } from "services/barber/get";
 import { useQuery } from "@tanstack/react-query";
 

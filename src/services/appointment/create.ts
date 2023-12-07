@@ -23,10 +23,6 @@ const createAppointment = async ({
     },
   });
 
-  if (!employee) {
-    throw new Error("Something went wrong when creating an appointment");
-  }
-
   return employee;
 };
 

@@ -1,3 +1,4 @@
+"use client";
 import * as z from "zod";
 
 import { CalendarIcon, Loader2 } from "lucide-react";
@@ -27,10 +28,11 @@ import { PopoverContent } from "components/ui/popover";
 import { appointmentTimeItems } from "lib/constants";
 import { cn } from "lib/utils";
 import { format } from "date-fns";
-import useCreateAppointment from "hooks/use-create-appointment";
 import { useForm } from "react-hook-form";
 import { useSession } from "next-auth/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import createAppointment from "services/appointment/create";
+import SubmitButton from "components/shared/submit-button";
 
 const formSchema = z.object({
   date: z.date({
@@ -59,13 +61,9 @@ const CreateAppointmentForm: FunctionComponent<CreateAppointmentFormProps> = ({
     resolver: zodResolver(formSchema),
     defaultValues: {},
   });
-  const { data } = useSession();
-  const { mutate, isLoading } = useCreateAppointment(
-    barberShopId,
-    form,
-    data?.user.email as string,
-    serviceId
-  );
+  const { data: sessionData } = useSession();
+  const { reset, handleSubmit, control } = form;
+  if (!sessionData) return null;
 
   const renderStafferSelectorItems = (employees ?? []).map(
     (employee: Employee) => (
@@ -83,18 +81,28 @@ const CreateAppointmentForm: FunctionComponent<CreateAppointmentFormProps> = ({
     )
   );
 
-  const onSubmit = async () => {
-    mutate();
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    const { date, time, employee } = data;
+    await createAppointment({
+      barberShopId,
+      employeeId: Number(employee),
+      date,
+      appointmentTime: time,
+      clientEmail: sessionData.user.email as string,
+      serviceId,
+    });
+
+    reset();
   };
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         autoComplete="off"
         className="flex flex-col gap-y-3"
       >
         <FormField
-          control={form.control}
+          control={control}
           name="date"
           render={({ field }) => (
             <FormItem className="flex flex-col">
@@ -136,7 +144,7 @@ const CreateAppointmentForm: FunctionComponent<CreateAppointmentFormProps> = ({
           )}
         />
         <FormField
-          control={form.control}
+          control={control}
           name="employee"
           render={({ field }) => (
             <FormItem>
@@ -154,7 +162,7 @@ const CreateAppointmentForm: FunctionComponent<CreateAppointmentFormProps> = ({
           )}
         />
         <FormField
-          control={form.control}
+          control={control}
           name="time"
           render={({ field }) => (
             <FormItem>
@@ -174,10 +182,7 @@ const CreateAppointmentForm: FunctionComponent<CreateAppointmentFormProps> = ({
           )}
         />
         <DialogFooter className="mt-5">
-          <Button disabled={false} type="submit">
-            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-            Book
-          </Button>
+          <SubmitButton label="Create" />
         </DialogFooter>
       </form>
     </Form>

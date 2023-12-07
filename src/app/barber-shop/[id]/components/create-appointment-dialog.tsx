@@ -10,9 +10,7 @@ import React, { FunctionComponent } from "react";
 
 import { Button } from "components/ui/button";
 import CreateAppointmentForm from "./create-appointment-form";
-import { fetchEmployeesForBarberShop } from "data/employees";
 import { useQuery } from "@tanstack/react-query";
-import getEmployeesForBusiness from "services/employees/get";
 import { getBarberShopByID } from "services/barber/get";
 
 interface CreateAppointmentDialogProps {
